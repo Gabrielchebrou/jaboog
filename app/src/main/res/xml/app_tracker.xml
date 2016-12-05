@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="ga_trackingId" tools:ignore="TypographyDashes" translatable="false">UA-72525290-2</string>
+    <string name="ga_sampleFrequency">100.0</string>
+    <bool name="ga_autoActivityTracking">true</bool>
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+    <integer name="ga_sessionTimeout">300</integer>
+    <item name="ga_dispatchPeriod" format="integer" type="integer">300</item>
+    <bool name="ga_dryRun">false</bool>
+    <string name="ga_logLevel">verbose</string>
+
+    <screenName name="com.corbel.pierre.jb.activity.AboutActivity">About</screenName>
+    <screenName name="com.corbel.pierre.jb.activity.CountDownActivity">Count Down</screenName>
+    <screenName name="com.corbel.pierre.jb.activity.HomeActivity">Home</screenName>
+    <screenName name="com.corbel.pierre.jb.activity.LoginActivity">Login</screenName>
+    <screenName name="com.corbel.pierre.jb.activity.ProfileActivity">Profile</screenName>
+    <screenName name="com.corbel.pierre.jb.activity.QuizActivity">Quiz</screenName>
+    <screenName name="com.corbel.pierre.jb.activity.ResultActivity">Results</screenName>
+    <screenName name="com.corbel.pierre.jb.activity.SettingsActivity">Settings</screenName>
+    <screenName name="com.corbel.pierre.jb.activity.SplashActivity">Splash</screenName>
+    <screenName name="com.corbel.pierre.jb.activity.TutorialActivity">Tutorial</screenName>
+
+</resources>

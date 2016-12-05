@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="140dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:adjustViewBounds="true"
+        android:background="@color/material_color_teal_500"
+        android:scaleType="centerInside" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image_view"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        app:civ_border_color="@color/material_color_white"
+        app:civ_border_width="2dp"
+        app:srcCompat="@drawable/account_circle" />
+
+    <com.corbel.pierre.jb.lib.AutoResizeTextView
+        android:id="@+id/profile_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_toEndOf="@id/profile_image_view"
+        android:text="Pierre CORBEL"
+        android:textColor="@color/material_color_white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        autofit:minTextSize="15sp" />
+
+</RelativeLayout>

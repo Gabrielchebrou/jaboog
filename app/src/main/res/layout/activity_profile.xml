@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/material_color_teal_500" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/profile_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image_view"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="24dp"
+            android:src="@raw/pco" />
+
+        <com.corbel.pierre.jb.lib.AutoResizeTextView
+            android:id="@+id/profile_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingStart="96dp"
+            android:text="Pierre CORBEL"
+            android:textSize="30sp" />
+    </android.support.v7.widget.CardView>
+
+    <ImageView
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/material_color_teal_500" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/footer"
+        android:layout_below="@id/profile_card_view"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:divider="@color/material_color_white"
+            android:padding="@dimen/activity_vertical_margin"
+            android:showDividers="middle"
+            android:stretchColumns="*">
+
+            <TableRow android:id="@+id/game_played_table_row">
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="@string/profile_played_game"
+                    android:textSize="20sp" />
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:id="@+id/game_played_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="10"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <include layout="@layout/table_separator" />
+
+            <TableRow android:id="@+id/game_finished_table_row">
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="@string/profile_finished_game"
+                    android:textSize="20sp" />
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:id="@+id/game_finished_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="5"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <include layout="@layout/table_separator" />
+
+            <TableRow android:id="@+id/question_answered_table_row">
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="@string/profile_answered_question"
+                    android:textSize="20sp" />
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:id="@+id/question_answered_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="100"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <include layout="@layout/table_separator" />
+
+            <TableRow android:id="@+id/joker_used_table_row">
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="@string/profile_joker_used"
+                    android:textSize="20sp" />
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:id="@+id/joker_used_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="100"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <include layout="@layout/table_separator" />
+
+            <TableRow android:id="@+id/joker_available_table_row">
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="@string/profile_joker_available"
+                    android:textSize="20sp" />
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:id="@+id/joker_available_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="10"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <include layout="@layout/table_separator" />
+
+            <TableRow android:id="@+id/best_score_table_row">
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="@string/profile_best_score"
+                    android:textSize="20sp" />
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:id="@+id/best_score_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="4300"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <include layout="@layout/table_separator" />
+
+            <TableRow android:id="@+id/stats_viewed_table_row">
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="@string/profile_stats_viewed"
+                    android:textSize="20sp" />
+
+                <com.corbel.pierre.jb.lib.AutoResizeTextView
+                    android:id="@+id/stats_viewed_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="5"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <include layout="@layout/table_separator" />
+
+        </TableLayout>
+    </ScrollView>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="26dp"
+        android:src="@drawable/home"
+        app:fab_colorNormal="@color/material_color_red_accent_700" />
+
+</RelativeLayout>

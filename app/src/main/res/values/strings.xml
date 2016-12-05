@@ -1,0 +1,85 @@
+<resources>
+
+    <!-- App -->
+    <string name="app_name">Jaboog</string>
+    <string name="app_id">750736924665</string>
+    <string name="package_name">com.corbel.pierre.jb</string>
+
+    <!-- Server -->
+    <string name="server">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/serie.txt</string>
+    <string name="server_version">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/version.txt</string>
+    <string name="server_name">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/name.txt</string>
+    <string name="server_archive">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/archive.txt</string>
+    <string name="server_alpha">http://ec2-52-89-37-179.us-west-2.compute.amazonaws.com/alpha/series.txt</string>
+
+    <!-- Home -->
+    <string name="home_serie">%1$s : %2$d/30</string>
+
+    <!-- Nav Drawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_settings">Paramètres</string>
+    <string name="navigation_drawer_update">Mettre à jour</string>
+    <string name="navigation_drawer_rate">Noter l\'application</string>
+    <string name="navigation_drawer_about">A propos</string>
+    <string name="navigation_drawer_help">Aide</string>
+    <string name="navigation_drawer_profil">Profile</string>
+
+    <!-- Toolbar -->
+    <string name="action_settings">Settings</string>
+
+    <!-- AdMob -->
+    <string name="ad_app_id">ca-app-pub-6354884509423536~5832205603</string>
+    <string name="ad_unit_id">ca-app-pub-6354884509423536/9643296407</string>
+    <string name="ad_nexus_5_id">B386017A1F5576942E3BE918378DE40E</string>
+    <string name="ad_nexus_5_X_id">8323FDF4AD196B3C0B0726EF43E2ABDF</string>
+
+    <!-- Shortcut -->
+    <string name="shortcut_home_short_label">Home</string>
+    <string name="shortcut_home_long_label">Going to Home View</string>
+    <string name="shortcut_home_disabled_label">Not going to Home View</string>
+    <string name="shortcut_quiz_short_label">Quiz</string>
+    <string name="shortcut_quiz_long_label">Going to Quiz View</string>
+    <string name="shortcut_quiz_disabled_label">Not going to Quiz View</string>
+
+    <!-- Misc -->
+    <string name="update_success">Questions mise à jour avec succès</string>
+    <string name="internet_failed">Veuillez vérifier votre connexion à Internet…</string>
+    <string name="rate_app">Souhaitez-vous noter l\'application ?</string>
+    <string name="archive_success">Séries disponibles mise à jour avec succès</string>
+
+    <!-- Profile -->
+    <string name="profile_played_game">Parties jouées</string>
+    <string name="profile_finished_game">Parties terminées</string>
+    <string name="profile_answered_question">Questions répondues</string>
+    <string name="profile_joker_used">Jokers utilisés</string>
+    <string name="profile_joker_available">Jokers disponibles</string>
+    <string name="profile_best_score">Meilleur score</string>
+    <string name="profile_stats_viewed">Vue des stats</string>
+    <string name="profile_number_info">%1$d</string>
+
+    <!-- Quiz -->
+    <string name="quiz_time_left">4:00</string>
+    <string name="quiz_score">Score : %1$d</string>
+    <string name="quiz_question_id">Question : %1$d/30</string>
+    <string name="quiz_simple_question_id">%1$d/30</string>
+    <string name="quiz_jokers_left">%1$d Jokers disponibles</string>
+    <string name="quiz_continue">Continuer ?</string>
+
+    <!-- Tuto -->
+    <string name="tuto_question">Saurez-vous répondre à 30 questions d\'actualité en moins de 4 minutes ?</string>
+    <string name="tuto_shuffle">Ces 30 questions sont mélangées toutes les 3 parties.</string>
+    <string name="tuto_news">Actualités</string>
+    <string name="tuto_update">Les questions sont mises à jour tous les lundis matin.</string>
+    <string name="tuto_ready">Prêt à faire chauffer votre matière grise et briller à la machine à café ?</string>
+    <string name="tuto_joker">Sinon, c\'est la fin de la partie !</string>
+    <string name="tuto_win_joker">Quatre bonnes réponses de suite vous donne le droit à une réponse fausse.</string>
+
+    <!-- About -->
+    <string name="about_author">Auteur : Gabriel CHEBROU</string>
+    <string name="about_developer">Développeur : Pierre CORBEL</string>
+    <string name="about_music">Musique : www.bensound.com</string>
+    <string name="about_bensoud">http://www.bensound.com</string>
+    <string name="about_lib">Librairies</string>
+
+</resources>

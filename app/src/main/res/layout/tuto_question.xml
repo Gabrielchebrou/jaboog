@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/material_color_teal_500" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/questions"
+        android:layout_centerInParent="true" />
+
+    <com.corbel.pierre.jb.lib.AutoResizeTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_above="@+id/image"
+        android:layout_centerHorizontal="true"
+        android:maxLines="3"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:fontFamily="proxima-nova"
+        android:text="@string/tuto_question"
+        android:textColor="@color/material_color_white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <com.corbel.pierre.jb.lib.AutoResizeTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/image"
+        android:layout_centerHorizontal="true"
+        android:maxLines="2"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:fontFamily="proxima-nova"
+        android:text="@string/tuto_shuffle"
+        android:textColor="@color/material_color_white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

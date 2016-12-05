@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.corbel.pierre.jb">
+
+    <!-- Permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
+    <application
+        android:name="com.corbel.pierre.jb.app.Jaboog"
+        android:allowBackup="true"
+        android:configChanges="orientation"
+        android:screenOrientation="portrait"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.corbel.pierre.jb.activity.SplashActivity"
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
+
+        <!-- Home Activity -->
+        <activity android:name="com.corbel.pierre.jb.activity.HomeActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- Login Activity -->
+        <activity android:name="com.corbel.pierre.jb.activity.LoginActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- Settings Activity -->
+        <activity android:name="com.corbel.pierre.jb.activity.SettingsActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- Profile Activity -->
+        <activity android:name="com.corbel.pierre.jb.activity.ProfileActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- CountDown Activity -->
+        <activity android:name="com.corbel.pierre.jb.activity.CountDownActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- Quiz Activity -->
+        <activity android:name="com.corbel.pierre.jb.activity.QuizActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- Result Activity -->
+        <activity android:name="com.corbel.pierre.jb.activity.ResultActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- Tutorial Activity -->
+        <activity android:name="com.corbel.pierre.jb.activity.TutorialActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- About Activity -->
+        <activity android:name="com.corbel.pierre.jb.activity.AboutActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- Archive Activity -->
+        <activity android:name="com.corbel.pierre.jb.activity.ArchiveActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- Google Play Games -->
+        <meta-data
+            android:name="com.google.android.gms.games.APP_ID"
+            android:value="@string/app_id" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!-- Google Analytics -->
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+
+        <!-- Badge -->
+        <receiver
+            android:name="com.corbel.pierre.jb.lib.AlarmReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.corbel.pierre.jb.lib.AlarmReceiver" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

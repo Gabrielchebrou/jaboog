@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/plus"
+        android:shortcutDisabledMessage="@string/shortcut_home_disabled_label"
+        android:shortcutId="home"
+        android:shortcutLongLabel="@string/shortcut_home_long_label"
+        android:shortcutShortLabel="@string/shortcut_home_short_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.corbel.pierre.jb.activity.HomeActivity"
+            android:targetPackage="com.corbel.pierre.jb" />
+        <categories android:name="android.intent.category.DEFAULT" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/plus"
+        android:shortcutDisabledMessage="@string/shortcut_quiz_disabled_label"
+        android:shortcutId="quiz"
+        android:shortcutLongLabel="@string/shortcut_quiz_long_label"
+        android:shortcutShortLabel="@string/shortcut_quiz_short_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.corbel.pierre.jb.activity.QuizActivity"
+            android:targetPackage="com.corbel.pierre.jb" />
+        <categories android:name="android.intent.category.DEFAULT" />
+    </shortcut>
+</shortcuts>

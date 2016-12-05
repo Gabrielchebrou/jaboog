@@ -1,0 +1,33 @@
+<resources>
+
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:keepScreenOn">true</item>
+        <item name="drawerArrowStyle">@style/MaterialDrawer.DrawerArrowStyle</item>
+    </style>
+
+    <!-- ToolBar -->
+    <style name="Toolbar" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorPrimary">@color/material_color_white</item>
+        <item name="colorPrimary">@color/material_color_teal_500</item>
+        <item name="colorPrimaryDark">@color/material_color_teal_500</item>
+        <item name="colorAccent">@color/material_color_teal_500</item>
+        <item name="colorControlNormal">@color/material_color_white</item>
+    </style>
+
+    <!-- Burger -->
+    <style name="MaterialDrawer.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@color/material_color_white</item>
+    </style>
+
+    <!-- Splash -->
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:keepScreenOn">true</item>
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+</resources>

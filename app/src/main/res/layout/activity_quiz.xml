@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/material_color_teal_500" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/question_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp">
+
+        <com.corbel.pierre.jb.lib.AutoResizeTextView
+            android:id="@+id/question_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:maxLines="5"
+            android:text="Selon une étude parue le mois dernier dans Journal of Evolutionary Biology, quelle caractéristique chez l’homme influence les femmes dans leur recherche d’une relation sérieuse ?"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+    </android.support.v7.widget.CardView>
+
+    <ImageView
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/material_color_teal_500" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/footer"
+        android:layout_below="@id/header"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical">
+
+        <com.corbel.pierre.jb.view.BeautifulButton
+            android:id="@+id/button_1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:pco_label="Réponse 1" />
+
+        <com.corbel.pierre.jb.view.BeautifulButton
+            android:id="@+id/button_2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:pco_label="Réponse 2" />
+
+        <com.corbel.pierre.jb.view.BeautifulButton
+            android:id="@+id/button_3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:pco_label="Réponse 3" />
+
+        <com.corbel.pierre.jb.view.BeautifulButton
+            android:id="@+id/button_4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:pco_label="Réponse 4" />
+
+    </LinearLayout>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/footer"
+        android:layout_alignEnd="@id/footer"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="false"
+        android:src="@drawable/heart_broken"
+        app:fab_colorNormal="@color/material_color_red_accent_700"
+        app:fab_progress="50"
+        app:fab_progress_backgroundColor="@color/material_color_black_54_percent"
+        app:fab_progress_color="@color/material_color_orange_accent_700"
+        app:fab_progress_max="100" />
+
+    <com.corbel.pierre.jb.lib.AutoResizeTextView
+        android:id="@+id/count_down_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:lines="1"
+        android:text="@string/quiz_time_left"
+        android:textColor="@color/material_color_white"
+        android:textSize="30sp" />
+
+    <com.corbel.pierre.jb.lib.AutoResizeTextView
+        android:id="@+id/score_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_alignTop="@id/footer"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:lines="1"
+        android:text="@string/quiz_score"
+        android:textColor="@color/material_color_white"
+        android:textSize="20sp" />
+
+    <com.corbel.pierre.jb.lib.AutoResizeTextView
+        android:id="@+id/id_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_alignBottom="@id/footer"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:lines="1"
+        android:text="@string/quiz_simple_question_id"
+        android:textColor="@color/material_color_white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/bonus_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:lines="2"
+        android:text="Série de 5\nBonus +5"
+        android:textColor="@color/material_color_teal_500"
+        android:textSize="50sp"
+        android:textStyle="bold|italic"
+        android:visibility="gone" />
+
+</RelativeLayout>
