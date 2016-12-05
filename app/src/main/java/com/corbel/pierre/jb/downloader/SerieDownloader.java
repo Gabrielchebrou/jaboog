@@ -52,16 +52,6 @@ public class SerieDownloader extends AsyncTask<String, Void, Boolean> {
         boolean hasFailed = false;
         String version;
 
-        // Alpha for developer
-        try {
-            version = String.valueOf(activity.getPackageManager().getPackageInfo(activity.getString(R.string.package_name), 0).versionName);
-            if (version.contains("alpha")) {
-                url = activity.getString(R.string.server_alpha);
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            // NO-OP
-        }
-
         // Download questions from URL
         try {
             InputStream input = new java.net.URL(url).openStream();

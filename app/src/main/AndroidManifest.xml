@@ -71,6 +71,10 @@
         <activity android:name="com.corbel.pierre.jb.activity.ArchiveActivity"
             android:screenOrientation="portrait"/>
 
+        <!-- IAP Activity -->
+        <activity android:name="com.corbel.pierre.jb.activity.IAPActivity"
+            android:screenOrientation="portrait"/>
+
         <!-- Google Play Games -->
         <meta-data
             android:name="com.google.android.gms.games.APP_ID"

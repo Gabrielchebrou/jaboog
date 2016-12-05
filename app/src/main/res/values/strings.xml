@@ -4,13 +4,29 @@
     <string name="app_name">Jaboog</string>
     <string name="app_id">750736924665</string>
     <string name="package_name">com.corbel.pierre.jb</string>
+    <string name="license_key">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlByeMiJlzoKNPZt8g5b/PSSoNf0uUbzEFEZARIHy3XxKBia2u4lk3QEuFYhQgK/jtIUW8yHm0Iru1sK+6NzHpxHudFbRzpZFDVYuTTW57wfwopjUwRZnx2wH8p922Xd75PwfY7UcXi/oZ9yOIx+AuKWaFqpt0h5bjdXkDSkNfIYC399T6eRb///xF8yZNtH25jk+/62Y6Hi2KQ8c6awIoBpB1tfoh5jwmiWfM6QLipDQIR+9fzUI5WfbKSsscLSuI7diEWtykMef7t/lgEYqKdtl2GnPfrw/lBZDBIYQoYnxORisEq2sov88nYIc5Y9H1mNLmvDmo2YZrUFJyoM09QIDAQAB</string>
 
     <!-- Server -->
     <string name="server">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/serie.txt</string>
     <string name="server_version">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/version.txt</string>
     <string name="server_name">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/name.txt</string>
     <string name="server_archive">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/archive.txt</string>
-    <string name="server_alpha">http://ec2-52-89-37-179.us-west-2.compute.amazonaws.com/alpha/series.txt</string>
+    <string name="server_alpha">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/alpha/serie.txt</string>
+
+    <!-- In-App-Purchase -->
+    <string name="noads">com.corbel.pierre.jb.noads</string>
+    <string name="littleheart">com.corbel.pierre.jb.littleheart</string>
+    <string name="bigheart">com.corbel.pierre.jb.bigheart</string>
+    <string name="premium">com.corbel.pierre.jb.premium</string>
+    <string name="iap_jokers_left">Plus que %1$d jokers !</string>
+    <string name="iap_no_ad_text">Pas de publicité</string>
+    <string name="iap_no_ad_price">0,99€</string>
+    <string name="iap_premium_text">Compte Premium</string>
+    <string name="iap_premium_price">3,99€</string>
+    <string name="iap_joker_25_text">Pack de 25 jokers</string>
+    <string name="iap_joker_25_price">0,99€</string>
+    <string name="iap_joker_50_text">Pack de 50 jokers</string>
+    <string name="iap_joker_50_price">1,99€</string>
 
     <!-- Home -->
     <string name="home_serie">%1$s : %2$d/30</string>

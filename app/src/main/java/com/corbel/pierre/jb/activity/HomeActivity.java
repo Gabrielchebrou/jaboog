@@ -180,6 +180,11 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
+    @OnClick(R.id.fab)
+    public void buy() {
+        animateOutTo(IAPActivity.class);
+    }
+
     public void prepareNavigationDrawer() {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

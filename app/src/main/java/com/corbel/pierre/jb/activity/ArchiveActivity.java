@@ -3,6 +3,7 @@ package com.corbel.pierre.jb.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -93,6 +94,16 @@ public class ArchiveActivity extends Activity {
                 String[] elements = archive.split(";");
                 createRow(elements[1], elements[2]);
             }
+        }
+
+        // Alpha for developer
+        try {
+            String version = String.valueOf(getPackageManager().getPackageInfo(getString(R.string.package_name), 0).versionName);
+            if (version.contains("alpha")) {
+                createRow(getString(R.string.server_alpha), "alpha");
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            // NO-OP
         }
     }
 
