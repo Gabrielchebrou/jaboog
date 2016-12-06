@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TableRow;
 
 import com.corbel.pierre.jb.R;
+import com.corbel.pierre.jb.lib.AchievementHelper;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.Helper;
 import com.github.clans.fab.FloatingActionButton;
@@ -85,10 +86,7 @@ public class ProfileActivity extends Activity {
         setStatusBarColor(this);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        int viewedStats = preferences.getInt("VIEWED_STATS", 0);
-        editor.putInt("VIEWED_STATS", ++viewedStats);
-        editor.apply();
+        AchievementHelper.checkStatsAchievement(this);
 
         profileTextView.setText(preferences.getString("NAME_PREF", "Joueur"));
         profileImageView.setImageBitmap(Helper.getUserPicture(this, "black"));

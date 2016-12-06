@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.corbel.pierre.jb.R;
+import com.corbel.pierre.jb.lib.AchievementHelper;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.CountDownTimerWithPause;
 import com.corbel.pierre.jb.lib.DbHelper;
@@ -220,7 +221,7 @@ public class QuizActivity extends Activity {
 
     private void onWin() {
         consecutiveGoodAnswer++;
-        //Helper.checkConsecutiveAchievement(this, consecutiveGoodAnswer);
+        AchievementHelper.checkConsecutiveAchievement(this, consecutiveGoodAnswer);
 
         score += 10;
         checkBonus(consecutiveGoodAnswer);
@@ -246,6 +247,8 @@ public class QuizActivity extends Activity {
         if (questionId < 30) {
             startQuestion(++questionId);
         } else {
+            AchievementHelper.checkFastAchievement(this, countDown.timePassed());
+            AchievementHelper.checkQuestionsAchievement(this, questionId);
             animateOutTo(ResultActivity.class);
         }
     }
@@ -268,7 +271,7 @@ public class QuizActivity extends Activity {
             button.startAnimation(fabAnimation);
             fabAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_out);
             fab.startAnimation(fabAnimation);
-            //Helper.checkJokerAchievement(this);
+            AchievementHelper.checkJokerAchievement(this);
             //Helper.incrementUsedJokers(this);
         } else {
             int jokerInStock = preferences.getInt("JOKER_IN_STOCK", 5);
