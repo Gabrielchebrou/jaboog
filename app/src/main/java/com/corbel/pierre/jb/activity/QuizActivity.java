@@ -23,6 +23,7 @@ import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.CountDownTimerWithPause;
 import com.corbel.pierre.jb.lib.DbHelper;
 import com.corbel.pierre.jb.lib.Helper;
+import com.corbel.pierre.jb.lib.LeaderBoardHelper;
 import com.corbel.pierre.jb.lib.MediaPlayerHelper;
 import com.corbel.pierre.jb.lib.Question;
 import com.corbel.pierre.jb.view.BeautifulButton;
@@ -248,7 +249,7 @@ public class QuizActivity extends Activity {
             startQuestion(++questionId);
         } else {
             AchievementHelper.checkFastAchievement(this, countDown.timePassed());
-            AchievementHelper.checkQuestionsAchievement(this, questionId);
+            LeaderBoardHelper.incrementFinishedGames(this);
             animateOutTo(ResultActivity.class);
         }
     }
@@ -272,7 +273,7 @@ public class QuizActivity extends Activity {
             fabAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_out);
             fab.startAnimation(fabAnimation);
             AchievementHelper.checkJokerAchievement(this);
-            //Helper.incrementUsedJokers(this);
+            LeaderBoardHelper.incrementUsedJokers(this);
         } else {
             int jokerInStock = preferences.getInt("JOKER_IN_STOCK", 5);
             if (jokerInStock > 0 && hasNotConsumedJoker && questionId >= 10) {
@@ -441,6 +442,9 @@ public class QuizActivity extends Activity {
         fabAnimation.setStartOffset(500);
         fab.setVisibility(View.INVISIBLE);
         fab.startAnimation(fabAnimation);
+
+        AchievementHelper.checkQuestionsAchievement(this, questionId);
+        LeaderBoardHelper.incrementAnsweredQuestions(this, questionId);
 
         handler.postDelayed(new Runnable() {
             @Override

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.lib.AchievementHelper;
+import com.corbel.pierre.jb.lib.LeaderBoardHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,6 +78,7 @@ public class CountDownActivity extends Activity {
 
         handler.postDelayed(runnable, 2250);
         AchievementHelper.checkPushPlayedAchievement(this);
+        LeaderBoardHelper.incrementPushedPlayed(this);
     }
 
     @Override

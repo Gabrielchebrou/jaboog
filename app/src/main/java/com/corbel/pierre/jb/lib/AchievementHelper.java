@@ -111,11 +111,6 @@ public class AchievementHelper {
                 Games.Achievements.increment(Jaboog.getGoogleApiHelper().mGoogleApiClient, activity.getResources().getString(R.string.achievement_accroc), 1);
             }
         }
-
-        SharedPreferences.Editor editor = preferences.edit();
-        int jokerUsed = preferences.getInt("JOKER_USED", 0);
-        editor.putInt("JOKER_USED", ++jokerUsed);
-        editor.apply();
     }
 
     public static void checkStatsAchievement(ProfileActivity activity) {

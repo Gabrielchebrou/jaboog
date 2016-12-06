@@ -16,6 +16,7 @@ import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.DbHelper;
 import com.corbel.pierre.jb.lib.Helper;
+import com.corbel.pierre.jb.lib.LeaderBoardHelper;
 import com.corbel.pierre.jb.lib.Question;
 import com.corbel.pierre.jb.view.BeautifulButton;
 import com.corbel.pierre.jb.view.BeautifulButtonWithImage;
@@ -76,6 +77,8 @@ public class ResultActivity extends Activity {
         questionId = getIntent().getExtras().getInt("questionId");
         String timeLeft = getIntent().getExtras().getString("timeLeft");
         score = getIntent().getExtras().getInt("score");
+
+        LeaderBoardHelper.incrementBestScore(this, score);
 
         currentQuestion = db.getQuestion(questionId);
         String question = currentQuestion.getQuestion();
