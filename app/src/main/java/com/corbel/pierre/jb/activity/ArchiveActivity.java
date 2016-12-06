@@ -124,7 +124,8 @@ public class ArchiveActivity extends Activity {
         TextView artv = new TextView(this);
         artv.setText(name);
         artv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        artv.setPadding(16, 16, 16, 16);
+        int dp = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
+        artv.setPadding(dp, dp, dp, dp);
         artv.setMaxLines(1);
         artv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
         artv.setOnClickListener(new View.OnClickListener() {
@@ -202,13 +203,14 @@ public class ArchiveActivity extends Activity {
                 LayoutInflater inflater = LayoutInflater.from(this);
                 View separator = inflater.inflate(R.layout.table_separator, null, false);
                 rowSeparator.addView(separator);
+                int dp = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
 
                 TableRow premiumRow = new TableRow(this);
                 premiumRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT));
                 TextView premiumTextView = new TextView(this);
                 premiumTextView.setText("Become Premium");
                 premiumTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                premiumTextView.setPadding(16, 16, 16, 16);
+                premiumTextView.setPadding(dp, dp, dp, dp);
                 premiumTextView.setMaxLines(1);
                 premiumTextView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
                 premiumTextView.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +231,7 @@ public class ArchiveActivity extends Activity {
                 TextView noAdTextView = new TextView(this);
                 noAdTextView.setText("Buy No Ads");
                 noAdTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                noAdTextView.setPadding(16, 16, 16, 16);
+                noAdTextView.setPadding(dp, dp, dp, dp);
                 noAdTextView.setMaxLines(1);
                 noAdTextView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
                 noAdTextView.setOnClickListener(new View.OnClickListener() {
@@ -249,7 +251,7 @@ public class ArchiveActivity extends Activity {
                 TextView joker3TextView = new TextView(this);
                 joker3TextView.setText("Buy 3 Jokers");
                 joker3TextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                joker3TextView.setPadding(16, 16, 16, 16);
+                joker3TextView.setPadding(dp, dp, dp, dp);
                 joker3TextView.setMaxLines(1);
                 joker3TextView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
                 joker3TextView.setOnClickListener(new View.OnClickListener() {
