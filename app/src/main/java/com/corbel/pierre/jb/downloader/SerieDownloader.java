@@ -10,7 +10,12 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 
 import com.corbel.pierre.jb.R;
+import com.corbel.pierre.jb.activity.ArchiveActivity;
+import com.corbel.pierre.jb.activity.CountDownActivity;
+import com.corbel.pierre.jb.activity.HomeActivity;
+import com.corbel.pierre.jb.activity.QuizActivity;
 import com.corbel.pierre.jb.lib.DbHelper;
+import com.corbel.pierre.jb.lib.Helper;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -26,9 +31,16 @@ public class SerieDownloader extends AsyncTask<String, Void, Boolean> {
 
     private ProgressDialog mProgressDialog;
     private Activity activity;
+    private boolean shouldGoToQuiz;
 
     public SerieDownloader(Activity activity) {
         this.activity = activity;
+        this.shouldGoToQuiz = false;
+    }
+
+    public SerieDownloader(Activity activity, boolean shouldGoToQuiz) {
+        this.activity = activity;
+        this.shouldGoToQuiz = shouldGoToQuiz;
     }
 
     @Override
@@ -95,6 +107,10 @@ public class SerieDownloader extends AsyncTask<String, Void, Boolean> {
             DbHelper db = DbHelper.getInstance(activity);
             db.onUpgrade(db.getWritableDatabase(), 0, 1);
             ShortcutBadger.removeCount(activity);
+
+            if (shouldGoToQuiz) {
+                ((ArchiveActivity) activity).animateOutTo(CountDownActivity.class);
+            }
         }
     }
 

@@ -129,7 +129,7 @@ public class ArchiveActivity extends Activity {
         artv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
         artv.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new SerieDownloader(ArchiveActivity.this).execute(url);
+                new SerieDownloader(ArchiveActivity.this, true).execute(url);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("SERIE_NAME_PREF", name);
                 editor.apply();
