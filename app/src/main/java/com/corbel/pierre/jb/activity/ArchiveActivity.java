@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.util.TypedValue;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.downloader.SerieDownloader;
+import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.Helper;
 import com.github.clans.fab.FloatingActionButton;
 
@@ -33,6 +35,7 @@ import java.io.Writer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
 
@@ -42,6 +45,9 @@ public class ArchiveActivity extends Activity {
     CardView headerCardView;
     @BindView(R.id.archive_table)
     TableLayout archiveTable;
+    @BindView(R.id.archive_text_view)
+    AutoResizeTextView archiveTextView;
+
     @BindView(R.id.fab)
     FloatingActionButton fab;
 
@@ -94,16 +100,6 @@ public class ArchiveActivity extends Activity {
                 String[] elements = archive.split(";");
                 createRow(elements[1], elements[2]);
             }
-        }
-
-        // Alpha for developer
-        try {
-            String version = String.valueOf(getPackageManager().getPackageInfo(getString(R.string.package_name), 0).versionName);
-            if (version.contains("alpha")) {
-                createRow(getString(R.string.server_alpha), "alpha");
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            // NO-OP
         }
     }
 
@@ -192,5 +188,88 @@ public class ArchiveActivity extends Activity {
                 Helper.switchActivity(ArchiveActivity.this, toActivity, R.anim.fake_anim, R.anim.fake_anim);
             }
         }, 400);
+    }
+
+    @OnLongClick(R.id.fab)
+    public boolean setAdminMode() {
+        try {
+            String version = String.valueOf(getPackageManager().getPackageInfo(getString(R.string.package_name), 0).versionName);
+            if (version.contains("alpha")) {
+                archiveTextView.setText("Admin Mode");
+                createRow(getString(R.string.server_alpha), "Alpha");
+
+                TableRow rowSeparator = new TableRow(this);
+                LayoutInflater inflater = LayoutInflater.from(this);
+                View separator = inflater.inflate(R.layout.table_separator, null, false);
+                rowSeparator.addView(separator);
+
+                TableRow premiumRow = new TableRow(this);
+                premiumRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT));
+                TextView premiumTextView = new TextView(this);
+                premiumTextView.setText("Become Premium");
+                premiumTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                premiumTextView.setPadding(16, 16, 16, 16);
+                premiumTextView.setMaxLines(1);
+                premiumTextView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+                premiumTextView.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean("PREMIUM_ENABLED", true);
+                        editor.apply();
+                        Snackbar.make(findViewById(android.R.id.content), "Premium Enabled", Snackbar.LENGTH_LONG)
+                                .show();
+                    }
+                });
+                premiumRow.addView(premiumTextView);
+                archiveTable.addView(premiumRow);
+                archiveTable.addView(rowSeparator);
+
+                TableRow noAdRow = new TableRow(this);
+                noAdRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT));
+                TextView noAdTextView = new TextView(this);
+                noAdTextView.setText("Buy No Ads");
+                noAdTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                noAdTextView.setPadding(16, 16, 16, 16);
+                noAdTextView.setMaxLines(1);
+                noAdTextView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+                noAdTextView.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean("AD_ENABLED", false);
+                        editor.apply();
+                        Snackbar.make(findViewById(android.R.id.content), "Ad Disabled", Snackbar.LENGTH_LONG)
+                                .show();
+                    }
+                });
+                noAdRow.addView(noAdTextView);
+                archiveTable.addView(noAdRow);
+
+                TableRow joker3Row = new TableRow(this);
+                joker3Row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT));
+                TextView joker3TextView = new TextView(this);
+                joker3TextView.setText("Buy 3 Jokers");
+                joker3TextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                joker3TextView.setPadding(16, 16, 16, 16);
+                joker3TextView.setMaxLines(1);
+                joker3TextView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+                joker3TextView.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        int joker = preferences.getInt("JOKER_IN_STOCK", 0) + 3;
+                        editor.putInt("JOKER_IN_STOCK", joker);
+                        editor.apply();
+                        Snackbar.make(findViewById(android.R.id.content), "3 Jokers added", Snackbar.LENGTH_LONG)
+                                .show();
+                    }
+                });
+                joker3Row.addView(joker3TextView);
+                archiveTable.addView(joker3Row);
+                return true;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            // NO-OP
+        }
+
+        return false;
     }
 }
