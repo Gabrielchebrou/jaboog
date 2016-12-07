@@ -100,6 +100,7 @@ public class QuizActivity extends Activity {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        joker = 1;
         // Prepare FAB and footer info
         fab.setProgress(0, true);
         fab.setIndeterminate(false);
@@ -268,9 +269,9 @@ public class QuizActivity extends Activity {
         if (joker == 1) {
             joker = 0;
             consecutiveGoodAnswer = 0;
+            fabAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_out);
             button.setVisibility(View.INVISIBLE);
             button.startAnimation(fabAnimation);
-            fabAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_out);
             fab.startAnimation(fabAnimation);
             AchievementHelper.checkJokerAchievement(this);
             LeaderBoardHelper.incrementUsedJokers(this);
