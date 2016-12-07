@@ -100,7 +100,6 @@ public class QuizActivity extends Activity {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        joker = 1;
         // Prepare FAB and footer info
         fab.setProgress(0, true);
         fab.setIndeterminate(false);
