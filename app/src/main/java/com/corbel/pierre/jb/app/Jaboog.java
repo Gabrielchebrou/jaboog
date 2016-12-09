@@ -3,6 +3,7 @@ package com.corbel.pierre.jb.app;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.lib.AnalyticsTrackers;
@@ -24,6 +25,10 @@ public class Jaboog extends MultiDexApplication {
 
     public static GoogleApiHelper getGoogleApiHelper() {
         return getInstance().getGoogleApiHelperInstance();
+    }
+
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
     @Override
