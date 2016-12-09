@@ -27,8 +27,10 @@ import com.corbel.pierre.jb.downloader.NameDownloader;
 import com.corbel.pierre.jb.downloader.SerieDownloader;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.CheckForUpdate;
+import com.corbel.pierre.jb.lib.DbHelper;
 import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.lib.MediaPlayerHelper;
+import com.corbel.pierre.jb.lib.Serie;
 import com.corbel.pierre.jb.view.BeautifulButtonWithImage;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.ads.AdRequest;
@@ -80,6 +82,7 @@ public class HomeActivity extends AppCompatActivity
     private Animation fabAnimation;
     private Handler handler = new Handler();
     private MediaPlayer mediaPlayer;
+    private DbHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +109,11 @@ public class HomeActivity extends AppCompatActivity
         profileImageView = (CircleImageView) headerView.findViewById(R.id.profile_image_view);
         profileTextView.setText(preferences.getString("NAME_PREF", "Joueur"));
         profileImageView.setImageBitmap(Helper.getUserPicture(this, "white"));
-        currentButton.setText(getString(R.string.home_serie, preferences.getString("SERIE_NAME_PREF", ""), preferences.getInt("BEST_ACTUAL_PROGRESS", 0)));
+
+        db = DbHelper.getInstance(this);
+        int id = preferences.getInt("CURRENT_SERIE_ID_PREF", 0);
+        Serie serie = db.getSerie(id);
+        currentButton.setText(serie.getName());
 
         new CheckForUpdate(this).execute(getResources().getString(R.string.server_version));
 
