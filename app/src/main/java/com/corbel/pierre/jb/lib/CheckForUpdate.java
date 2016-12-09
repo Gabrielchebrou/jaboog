@@ -70,11 +70,7 @@ public class CheckForUpdate extends AsyncTask<String, Void, String> {
                 mEditor.putBoolean("SHOULD_UPDATE", true);
                 mEditor.apply();
 
-                if (preferences.getBoolean("SHOULD_UPDATE_AUTOMATICALLY", true)) {
-                    new SerieDownloader(activity).execute(activity.getResources().getString(R.string.server));
-                    new NameDownloader(activity).execute(activity.getResources().getString(R.string.server_name));
-                    new ArchiveDownloader(activity).execute(activity.getResources().getString(R.string.server_archive));
-                }
+                new ArchiveDownloader(activity).execute(activity.getResources().getString(R.string.server_archive));
             }
         }
     }

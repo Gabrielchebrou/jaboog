@@ -7,9 +7,7 @@
     <string name="license_key">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlByeMiJlzoKNPZt8g5b/PSSoNf0uUbzEFEZARIHy3XxKBia2u4lk3QEuFYhQgK/jtIUW8yHm0Iru1sK+6NzHpxHudFbRzpZFDVYuTTW57wfwopjUwRZnx2wH8p922Xd75PwfY7UcXi/oZ9yOIx+AuKWaFqpt0h5bjdXkDSkNfIYC399T6eRb///xF8yZNtH25jk+/62Y6Hi2KQ8c6awIoBpB1tfoh5jwmiWfM6QLipDQIR+9fzUI5WfbKSsscLSuI7diEWtykMef7t/lgEYqKdtl2GnPfrw/lBZDBIYQoYnxORisEq2sov88nYIc5Y9H1mNLmvDmo2YZrUFJyoM09QIDAQAB</string>
 
     <!-- Server -->
-    <string name="server">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/serie.txt</string>
     <string name="server_version">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/version.txt</string>
-    <string name="server_name">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/name.txt</string>
     <string name="server_archive">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/archive.txt</string>
     <string name="server_alpha">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/alpha/serie.txt</string>
 

@@ -8,8 +8,11 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
+import android.view.View;
 
 import com.corbel.pierre.jb.R;
+import com.corbel.pierre.jb.activity.ArchiveActivity;
+import com.corbel.pierre.jb.activity.HomeActivity;
 import com.corbel.pierre.jb.lib.DbHelper;
 
 import java.io.BufferedReader;
@@ -84,6 +87,7 @@ public class ArchiveDownloader extends AsyncTask<String, Void, Boolean> {
             noInternet(activity);
         } else {
             Snackbar.make(activity.findViewById(android.R.id.content), activity.getString(R.string.archive_success), Snackbar.LENGTH_LONG)
+                    .setAction("OK", new SnackListener())
                     .show();
             SharedPreferences mPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
             SharedPreferences.Editor mEditor = mPreferences.edit();
@@ -95,5 +99,12 @@ public class ArchiveDownloader extends AsyncTask<String, Void, Boolean> {
     @Override
     protected void onCancelled() {
         mProgressDialog.dismiss();
+    }
+
+    private  class SnackListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            ((HomeActivity) activity).animateOutTo(ArchiveActivity.class);
+        }
     }
 }

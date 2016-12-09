@@ -272,6 +272,7 @@ public class DbHelper extends SQLiteOpenHelper {
             }
         } catch (Exception e) {
             Log.d("DbHelper : ", "Cannot read from raw");
+            return null;
         }
 
         return writer.toString();

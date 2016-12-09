@@ -151,8 +151,7 @@ public class HomeActivity extends AppCompatActivity
         if (preferences.getBoolean("IS_DB_READY", false)) {
             animateOutTo(CountDownActivity.class);
         } else {
-            new SerieDownloader(this).execute(getResources().getString(R.string.server));
-            new NameDownloader(this).execute(getResources().getString(R.string.server_name));
+            animateOutTo(ArchiveActivity.class);
         }
     }
 
@@ -235,8 +234,6 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
             animateOutTo(SettingsActivity.class);
         } else if (id == R.id.nav_update) {
-            new SerieDownloader(this).execute(getResources().getString(R.string.server));
-            new NameDownloader(this).execute(getResources().getString(R.string.server_name));
             new ArchiveDownloader(this).execute(getResources().getString(R.string.server_archive));
         } else if (id == R.id.nav_rate) {
             String appId = getResources().getString(R.string.package_name);
