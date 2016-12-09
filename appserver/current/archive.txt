@@ -1,2 +1,9 @@
-2;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2016S49.txt;A2016S49
-1;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2016S48.txt;A2016S48
+9;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2016S49.txt;Deuxième Tour de la Primaire de Droite
+8;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2016S48.txt;Thomas Pesquet sur l'ISS
+7;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2016S46.txt;Election Américaine
+6;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2016S45.txt;Le 1er Novembre
+5;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2016S44.txt;Le Salon du Chocolat
+4;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2016S43.txt;Mission to Mars
+3;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2016S42.txt;Fête de la Science
+2;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2016S41.txt;Les Prix Nobel
+1;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2016S40.txt;Le Salon de l'Automobile
