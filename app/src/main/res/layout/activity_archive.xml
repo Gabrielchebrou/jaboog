@@ -48,17 +48,12 @@
         android:layout_marginTop="24dp"
         android:orientation="vertical">
 
-        <TableLayout
-            android:layout_width="fill_parent"
+        <LinearLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:divider="@color/material_color_white"
-            android:padding="@dimen/activity_vertical_margin"
-            android:showDividers="middle"
-            android:stretchColumns="*"
-            android:id="@+id/archive_table">
+            android:orientation="vertical"
+            android:id="@+id/scroll_view">
 
-        </TableLayout>
+        </LinearLayout>
     </ScrollView>
 
     <com.github.clans.fab.FloatingActionButton

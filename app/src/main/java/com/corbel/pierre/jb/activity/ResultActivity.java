@@ -3,10 +3,12 @@ package com.corbel.pierre.jb.activity;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,6 +20,7 @@ import com.corbel.pierre.jb.lib.DbHelper;
 import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.lib.LeaderBoardHelper;
 import com.corbel.pierre.jb.lib.Question;
+import com.corbel.pierre.jb.lib.Serie;
 import com.corbel.pierre.jb.view.BeautifulButton;
 import com.corbel.pierre.jb.view.BeautifulButtonWithImage;
 import com.github.clans.fab.FloatingActionButton;
@@ -79,6 +82,20 @@ public class ResultActivity extends Activity {
         score = getIntent().getExtras().getInt("score");
 
         LeaderBoardHelper.incrementBestScore(this, score);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int id = preferences.getInt("CURRENT_SERIE_ID_PREF", 0);
+        Serie serie = db.getSerie(id);
+
+        if (serie.getProgress() < questionId) {
+            serie.setProgress(questionId);
+        }
+
+        if (serie.getHighScore() < score) {
+            serie.setHighScore(score);
+        }
+
+        db.updateSerie(db.getWritableDatabase(), serie.getId(), serie.getUrl(), serie.getName(), serie.getHighScore(), serie.getProgress());
 
         currentQuestion = db.getQuestion(questionId);
         String question = currentQuestion.getQuestion();

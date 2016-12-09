@@ -30,6 +30,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final int dbVersion = 1;
     private static final String dbName = "jb.db";
     private static final String dbTable = "quiz";
+    private static final String dbSerieTable = "serie";
     private static final String id = "id";
     private static final String question = "question";
     private static final String answer_1 = "answer_1";
@@ -71,7 +72,47 @@ public class DbHelper extends SQLiteOpenHelper {
 
         db.execSQL(createSql);
 
+        String createSql2 = "CREATE TABLE IF NOT EXISTS " + dbSerieTable + " ( "
+                + "id INTEGER, "
+                + "url TEXT, "
+                + "name TEXT, "
+                + "highScore INTEGER, "
+                + "progress INTEGER)";
+
+        db.execSQL(createSql2);
+
         setAllQuestions();
+    }
+
+    public void createSerieIfNotExists(SQLiteDatabase db, String id, String url, String name) {
+
+        this.db = db;
+        int highScore = 0;
+        int progress = 0;
+
+        String sql = "INSERT INTO "+ dbSerieTable + "(id, url, name, highScore, progress) "
+        + "SELECT " + id + ",\"" + url + "\",\"" + name + "\"," + highScore + "," + progress
+        + " WHERE NOT EXISTS(SELECT 1 FROM "+ dbSerieTable + " WHERE "
+        + "id = " + id + ");";
+
+        db.execSQL(sql);
+    }
+
+    public void updateSerie(SQLiteDatabase db, int id, String url, String name, int highScore, int progress) {
+
+        this.db = db;
+
+        String sql = "UPDATE " + dbSerieTable + " SET "
+                + "id = " + id + ", "
+                + "url = \"" + url + "\", "
+                + "name = \"" + name + "\", "
+                + "highScore = " + highScore + ", "
+                + "progress = " + progress + " "
+                + "WHERE id = " + id + ";";
+
+        Log.d(TAG, sql);
+
+        db.execSQL(sql);
     }
 
     @Override
@@ -192,6 +233,28 @@ public class DbHelper extends SQLiteOpenHelper {
         cursor.close();
 
         return questionToGet;
+    }
+
+    public Serie getSerie(int serieId) {
+
+        String sql = "SELECT * FROM " + dbSerieTable + " WHERE id =" + serieId;
+
+        db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        Serie serieToGet = new Serie();
+        while (cursor.moveToNext()) {
+            serieToGet.setId(cursor.getInt(0));
+            serieToGet.setUrl(cursor.getString(1));
+            serieToGet.setName(cursor.getString(2));
+            serieToGet.setHighScore(cursor.getInt(3));
+            serieToGet.setProgress(cursor.getInt(4));
+        }
+
+        cursor.close();
+
+        return serieToGet;
     }
 
     private String readFromRaw(Context ctx) throws Exception {

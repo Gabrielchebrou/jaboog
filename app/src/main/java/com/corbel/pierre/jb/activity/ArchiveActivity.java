@@ -15,14 +15,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.TableLayout;
+import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.downloader.SerieDownloader;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
+import com.corbel.pierre.jb.lib.DbHelper;
 import com.corbel.pierre.jb.lib.Helper;
+import com.corbel.pierre.jb.lib.Serie;
 import com.github.clans.fab.FloatingActionButton;
 
 import java.io.BufferedReader;
@@ -43,8 +45,8 @@ public class ArchiveActivity extends Activity {
 
     @BindView(R.id.header_card_view)
     CardView headerCardView;
-    @BindView(R.id.archive_table)
-    TableLayout archiveTable;
+    @BindView(R.id.scroll_view)
+    LinearLayout scrollView;
     @BindView(R.id.archive_text_view)
     AutoResizeTextView archiveTextView;
 
@@ -55,10 +57,11 @@ public class ArchiveActivity extends Activity {
     private SharedPreferences preferences;
 
     private Animation headerCardViewAnimation;
-    private Animation archiveTableAnimation;
+    private Animation scrollViewAnimation;
     private Animation fabAnimation;
 
     private Handler handler = new Handler();
+    private DbHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +74,7 @@ public class ArchiveActivity extends Activity {
 
         // Init Animations
         headerCardViewAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_in);
-        archiveTableAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_in);
+        scrollViewAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_in);
         fabAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_in);
 
         // Anim In
@@ -79,9 +82,9 @@ public class ArchiveActivity extends Activity {
         headerCardView.setVisibility(View.VISIBLE);
         headerCardView.startAnimation(headerCardViewAnimation);
 
-        archiveTableAnimation.setStartOffset(100);
-        archiveTable.setVisibility(View.VISIBLE);
-        archiveTable.startAnimation(archiveTableAnimation);
+        scrollViewAnimation.setStartOffset(100);
+        scrollView.setVisibility(View.VISIBLE);
+        scrollView.startAnimation(scrollViewAnimation);
 
         fabAnimation.setStartOffset(200);
         fab.setVisibility(View.VISIBLE);
@@ -93,12 +96,15 @@ public class ArchiveActivity extends Activity {
             // NO-OP
         }
 
+        db = DbHelper.getInstance(this);
+
         if (archive != null) {
             String[] archiveList = archive.split("\n");
 
             for (String archive : archiveList) {
                 String[] elements = archive.split(";");
-                createRow(elements[1], elements[2]);
+                db.createSerieIfNotExists(db.getWritableDatabase(), elements[0], elements[1], elements[2]);
+                createRow(Integer.parseInt(elements[0]));
             }
         }
     }
@@ -113,34 +119,42 @@ public class ArchiveActivity extends Activity {
         animateOutTo(HomeActivity.class);
     }
 
-    public void createRow(final String url, final String name) {
-        TableRow row = new TableRow(this);
-        TableRow rowSeparator = new TableRow(this);
+    public void createRow(final int id) {
 
+        final Serie serie = db.getSerie(id);
         LayoutInflater inflater = LayoutInflater.from(this);
-        View separator = inflater.inflate(R.layout.table_separator, null, false);
+        CardView serieCardView = (CardView) inflater.inflate(R.layout.serie_card, null, false);
 
-        row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT));
-        TextView artv = new TextView(this);
-        artv.setText(name);
-        artv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        AutoResizeTextView serieName = (AutoResizeTextView) serieCardView.findViewById(R.id.serie_name);
+        serieName.setText(serie.getName());
+
+        AutoResizeTextView serieHighScore = (AutoResizeTextView) serieCardView.findViewById(R.id.serie_high_score);
+        serieHighScore.setText(getString(R.string.arch_high_score, serie.getHighScore()));
+
+        AutoResizeTextView serieProgress = (AutoResizeTextView) serieCardView.findViewById(R.id.serie_progress);
+        serieProgress.setText(getString(R.string.arch_progress, serie.getProgress()));
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+
         int dp = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
-        artv.setPadding(dp, dp, dp, dp);
-        artv.setMaxLines(1);
-        artv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-        artv.setOnClickListener(new View.OnClickListener() {
+        int dp_vertical = getResources().getDimensionPixelSize(R.dimen.dp_8_margin);
+        params.setMargins(dp, dp_vertical, dp, dp_vertical);
+        serieCardView.setLayoutParams(params);
+
+        serieCardView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new SerieDownloader(ArchiveActivity.this, true).execute(url);
+                new SerieDownloader(ArchiveActivity.this, true).execute(serie.getUrl());
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("SERIE_NAME_PREF", name);
+                editor.putString("SERIE_NAME_PREF", serie.getName());
+                editor.putInt("CURRENT_SERIE_ID_PREF", serie.getId());
                 editor.apply();
             }
         });
 
-        row.addView(artv);
-        rowSeparator.addView(separator);
-        archiveTable.addView(row);
-        archiveTable.addView(rowSeparator);
+        scrollView.addView(serieCardView);
     }
 
     private String readFromRaw(Context ctx) throws Exception {
@@ -167,7 +181,7 @@ public class ArchiveActivity extends Activity {
 
         // Init Animations
         headerCardViewAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_out);
-        archiveTableAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_out);
+        scrollViewAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_out);
         fabAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_out);
 
         // Anim Out
@@ -175,9 +189,9 @@ public class ArchiveActivity extends Activity {
         headerCardView.setVisibility(View.INVISIBLE);
         headerCardView.startAnimation(headerCardViewAnimation);
 
-        archiveTableAnimation.setStartOffset(100);
-        archiveTable.setVisibility(View.INVISIBLE);
-        archiveTable.startAnimation(archiveTableAnimation);
+        scrollViewAnimation.setStartOffset(100);
+        scrollView.setVisibility(View.INVISIBLE);
+        scrollView.startAnimation(scrollViewAnimation);
 
         fabAnimation.setStartOffset(200);
         fab.setVisibility(View.INVISIBLE);
@@ -197,23 +211,57 @@ public class ArchiveActivity extends Activity {
             String version = String.valueOf(getPackageManager().getPackageInfo(getString(R.string.package_name), 0).versionName);
             if (version.contains("alpha")) {
                 archiveTextView.setText("Admin Mode");
-                createRow(getString(R.string.server_alpha), "Alpha");
-
-                TableRow rowSeparator = new TableRow(this);
                 LayoutInflater inflater = LayoutInflater.from(this);
-                View separator = inflater.inflate(R.layout.table_separator, null, false);
-                rowSeparator.addView(separator);
-                int dp = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
 
-                TableRow premiumRow = new TableRow(this);
-                premiumRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT));
-                TextView premiumTextView = new TextView(this);
-                premiumTextView.setText("Become Premium");
-                premiumTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                premiumTextView.setPadding(dp, dp, dp, dp);
-                premiumTextView.setMaxLines(1);
-                premiumTextView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-                premiumTextView.setOnClickListener(new View.OnClickListener() {
+                // Alpha
+                CardView alphaCardView = (CardView) inflater.inflate(R.layout.serie_card, null, false);
+
+                AutoResizeTextView alphaName = (AutoResizeTextView) alphaCardView.findViewById(R.id.serie_name);
+                alphaName.setText("Alpha");
+
+                AutoResizeTextView alphaHighScore = (AutoResizeTextView) alphaCardView.findViewById(R.id.serie_high_score);
+                alphaHighScore.setText(getString(R.string.arch_high_score, -1));
+
+                AutoResizeTextView alphaProgress = (AutoResizeTextView) alphaCardView.findViewById(R.id.serie_progress);
+                alphaProgress.setText(getString(R.string.arch_progress, -1));
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+
+                int dp = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
+                int dp_vertical = getResources().getDimensionPixelSize(R.dimen.dp_8_margin);
+                params.setMargins(dp, dp_vertical, dp, dp_vertical);
+                alphaCardView.setLayoutParams(params);
+
+                alphaCardView.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        new SerieDownloader(ArchiveActivity.this, true).execute(getString(R.string.server_alpha));
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("SERIE_NAME_PREF", "Alpha");
+                        editor.putInt("CURRENT_SERIE_ID_PREF", -1);
+                        editor.apply();
+                    }
+                });
+
+                scrollView.addView(alphaCardView);
+
+                // Premium
+                CardView premiumCardView = (CardView) inflater.inflate(R.layout.serie_card, null, false);
+
+                AutoResizeTextView serieName = (AutoResizeTextView) premiumCardView.findViewById(R.id.serie_name);
+                serieName.setText("Premium");
+
+                AutoResizeTextView serieHighScore = (AutoResizeTextView) premiumCardView.findViewById(R.id.serie_high_score);
+                serieHighScore.setText("Become Premium");
+
+                AutoResizeTextView serieProgress = (AutoResizeTextView) premiumCardView.findViewById(R.id.serie_progress);
+                serieProgress.setText("Mon gars!");
+
+                premiumCardView.setLayoutParams(params);
+
+                premiumCardView.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putBoolean("PREMIUM_ENABLED", true);
@@ -222,19 +270,24 @@ public class ArchiveActivity extends Activity {
                                 .show();
                     }
                 });
-                premiumRow.addView(premiumTextView);
-                archiveTable.addView(premiumRow);
-                archiveTable.addView(rowSeparator);
 
-                TableRow noAdRow = new TableRow(this);
-                noAdRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT));
-                TextView noAdTextView = new TextView(this);
-                noAdTextView.setText("Buy No Ads");
-                noAdTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                noAdTextView.setPadding(dp, dp, dp, dp);
-                noAdTextView.setMaxLines(1);
-                noAdTextView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-                noAdTextView.setOnClickListener(new View.OnClickListener() {
+                scrollView.addView(premiumCardView);
+
+                // noAd
+                CardView noAdCardView = (CardView) inflater.inflate(R.layout.serie_card, null, false);
+
+                AutoResizeTextView noAdName = (AutoResizeTextView) noAdCardView.findViewById(R.id.serie_name);
+                noAdName.setText("No Ads");
+
+                AutoResizeTextView noAdHighScore = (AutoResizeTextView) noAdCardView.findViewById(R.id.serie_high_score);
+                noAdHighScore.setText("Buy No Ads");
+
+                AutoResizeTextView noAdProgress = (AutoResizeTextView) noAdCardView.findViewById(R.id.serie_progress);
+                noAdProgress.setText("Bastoss!");
+
+                noAdCardView.setLayoutParams(params);
+
+                noAdCardView.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putBoolean("AD_ENABLED", false);
@@ -243,18 +296,24 @@ public class ArchiveActivity extends Activity {
                                 .show();
                     }
                 });
-                noAdRow.addView(noAdTextView);
-                archiveTable.addView(noAdRow);
 
-                TableRow joker3Row = new TableRow(this);
-                joker3Row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT));
-                TextView joker3TextView = new TextView(this);
-                joker3TextView.setText("Buy 3 Jokers");
-                joker3TextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                joker3TextView.setPadding(dp, dp, dp, dp);
-                joker3TextView.setMaxLines(1);
-                joker3TextView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-                joker3TextView.setOnClickListener(new View.OnClickListener() {
+                scrollView.addView(noAdCardView);
+
+                // Joker
+                CardView jokerCardView = (CardView) inflater.inflate(R.layout.serie_card, null, false);
+
+                AutoResizeTextView jokerName = (AutoResizeTextView) jokerCardView.findViewById(R.id.serie_name);
+                jokerName.setText("Jokers");
+
+                AutoResizeTextView jokerHighScore = (AutoResizeTextView) jokerCardView.findViewById(R.id.serie_high_score);
+                jokerHighScore.setText("Buy 3 Jokers");
+
+                AutoResizeTextView jokerProgress = (AutoResizeTextView) jokerCardView.findViewById(R.id.serie_progress);
+                jokerProgress.setText("Mouhahaha!");
+
+                jokerCardView.setLayoutParams(params);
+
+                jokerCardView.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         SharedPreferences.Editor editor = preferences.edit();
                         int joker = preferences.getInt("JOKER_IN_STOCK", 0) + 3;
@@ -264,8 +323,8 @@ public class ArchiveActivity extends Activity {
                                 .show();
                     }
                 });
-                joker3Row.addView(joker3TextView);
-                archiveTable.addView(joker3Row);
+
+                scrollView.addView(jokerCardView);
                 return true;
             }
         } catch (PackageManager.NameNotFoundException e) {
