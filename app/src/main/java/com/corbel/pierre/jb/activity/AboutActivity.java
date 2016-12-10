@@ -14,6 +14,8 @@ import android.view.animation.AnimationUtils;
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.view.FloatingActionButton;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -88,6 +90,13 @@ public class AboutActivity extends Activity {
         } catch (ActivityNotFoundException e) {
             noInternet(this);
         }
+    }
+
+    @OnClick(R.id.lib_card_view)
+    public void openLibActivity() {
+        new LibsBuilder()
+                .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                .start(this);
     }
 
     @OnClick(R.id.fab)
