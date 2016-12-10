@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/material_color_teal_500" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/header_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp">
+
+        <com.corbel.pierre.jb.lib.AutoResizeTextView
+            android:id="@+id/header_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:maxLines="5"
+            android:text="Terminé!"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+    </android.support.v7.widget.CardView>
+
+    <ImageView
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/material_color_teal_500" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/footer"
+        android:layout_below="@id/header"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical">
+
+        <com.corbel.pierre.jb.view.BeautifulButtonWithImage
+            android:id="@+id/score_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            app:pco_label="@string/quiz_score"
+            app:pco_src="@drawable/cup" />
+
+        <com.corbel.pierre.jb.view.BeautifulButtonWithImage
+            android:id="@+id/clock_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            app:pco_label="@string/finish_time_left"
+            app:pco_src="@drawable/clock" />
+
+        <com.corbel.pierre.jb.view.BeautifulButtonWithImage
+            android:id="@+id/rate_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            app:pco_label="@string/navigation_drawer_rate"
+            app:pco_src="@drawable/google_play" />
+
+        <com.corbel.pierre.jb.view.BeautifulButtonWithImage
+            android:id="@+id/archive_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            app:pco_label="Séries disponibles"
+            app:pco_src="@drawable/book_open_variant" />
+
+    </LinearLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/ad_view"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/ad_unit_id" />
+
+    <com.corbel.pierre.jb.view.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/footer"
+        android:layout_alignEnd="@id/footer"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="8dp"
+        app:srcCompat="@drawable/replay"
+        app:fab_colorNormal="@color/material_color_red_accent_700" />
+
+</RelativeLayout>

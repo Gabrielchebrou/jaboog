@@ -245,12 +245,13 @@ public class QuizActivity extends Activity {
 
         scoreTextView.setText(getString(R.string.quiz_score, score));
 
+        //questionId = 30;
         if (questionId < 30) {
             startQuestion(++questionId);
         } else {
             AchievementHelper.checkFastAchievement(this, countDown.timePassed());
             LeaderBoardHelper.incrementFinishedGames(this);
-            animateOutTo(ResultActivity.class);
+            animateOutTo(FinishActivity.class);
         }
     }
 

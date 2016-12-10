@@ -100,4 +100,7 @@
     <string name="arch_high_score">Score : %1$d</string>
     <string name="arch_progress">Question : %1$d/30</string>
 
+    <!-- Finish -->
+    <string name="finish_time_left">Temps restant : %1$s</string>
+
 </resources>
