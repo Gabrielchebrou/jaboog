@@ -27,7 +27,7 @@ import com.corbel.pierre.jb.lib.LeaderBoardHelper;
 import com.corbel.pierre.jb.lib.MediaPlayerHelper;
 import com.corbel.pierre.jb.lib.Question;
 import com.corbel.pierre.jb.view.BeautifulButton;
-import com.github.clans.fab.FloatingActionButton;
+import com.corbel.pierre.jb.view.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collections;

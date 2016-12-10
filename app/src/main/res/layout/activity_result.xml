@@ -96,7 +96,7 @@
         ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/ad_unit_id" />
 
-    <com.github.clans.fab.FloatingActionButton
+    <com.corbel.pierre.jb.view.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -104,7 +104,7 @@
         android:layout_alignEnd="@id/footer"
         android:layout_marginBottom="28dp"
         android:layout_marginEnd="8dp"
-        android:src="@drawable/replay"
+        app:srcCompat="@drawable/replay"
         app:fab_colorNormal="@color/material_color_red_accent_700" />
 
 </RelativeLayout>

@@ -15,7 +15,7 @@ import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.lib.AchievementHelper;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.Helper;
-import com.github.clans.fab.FloatingActionButton;
+import com.corbel.pierre.jb.view.FloatingActionButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -32,7 +32,7 @@ import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.lib.MediaPlayerHelper;
 import com.corbel.pierre.jb.lib.Serie;
 import com.corbel.pierre.jb.view.BeautifulButtonWithImage;
-import com.github.clans.fab.FloatingActionButton;
+import com.corbel.pierre.jb.view.FloatingActionButton;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.api.GoogleApiClient;

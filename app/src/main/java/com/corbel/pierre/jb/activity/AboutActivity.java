@@ -13,7 +13,7 @@ import android.view.animation.AnimationUtils;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.lib.Helper;
-import com.github.clans.fab.FloatingActionButton;
+import com.corbel.pierre.jb.view.FloatingActionButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

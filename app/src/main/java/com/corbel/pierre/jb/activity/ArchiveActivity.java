@@ -28,7 +28,7 @@ import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.DbHelper;
 import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.lib.Serie;
-import com.github.clans.fab.FloatingActionButton;
+import com.corbel.pierre.jb.view.FloatingActionButton;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -212,6 +212,7 @@ public class ArchiveActivity extends Activity {
             }
         } catch (Exception e) {
             Log.d("ArchiveActivity : ", "Cannot read archive from raw");
+            return null;
         }
 
         return writer.toString();

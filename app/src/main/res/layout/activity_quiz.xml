@@ -79,7 +79,7 @@
 
     </LinearLayout>
 
-    <com.github.clans.fab.FloatingActionButton
+    <com.corbel.pierre.jb.view.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -88,7 +88,7 @@
         android:layout_marginBottom="28dp"
         android:layout_marginEnd="8dp"
         android:clickable="false"
-        android:src="@drawable/heart_broken"
+        app:srcCompat="@drawable/heart_broken"
         app:fab_colorNormal="@color/material_color_red_accent_700"
         app:fab_progress="50"
         app:fab_progress_backgroundColor="@color/material_color_black_54_percent"

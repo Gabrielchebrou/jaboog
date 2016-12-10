@@ -21,7 +21,7 @@ import com.corbel.pierre.jb.util.IabHelper;
 import com.corbel.pierre.jb.util.IabResult;
 import com.corbel.pierre.jb.util.Inventory;
 import com.corbel.pierre.jb.util.Purchase;
-import com.github.clans.fab.FloatingActionButton;
+import com.corbel.pierre.jb.view.FloatingActionButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
