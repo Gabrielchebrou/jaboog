@@ -15,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.corbel.pierre.jb.R;
+import com.corbel.pierre.jb.app.Jaboog;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.DbHelper;
 import com.corbel.pierre.jb.lib.Helper;
@@ -26,6 +27,8 @@ import com.corbel.pierre.jb.view.BeautifulButtonWithImage;
 import com.corbel.pierre.jb.view.FloatingActionButton;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +36,7 @@ import butterknife.OnClick;
 
 import static com.corbel.pierre.jb.lib.Helper.noInternet;
 import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
+import static com.corbel.pierre.jb.lib.Helper.setViewForPopup;
 
 public class ResultActivity extends Activity {
 
@@ -165,6 +169,22 @@ public class ResultActivity extends Activity {
     @OnClick(R.id.fab)
     public void replay() {
         animateOutTo(CountDownActivity.class);
+    }
+
+    @OnClick(R.id.current_button)
+    public void openArchive() {
+        animateOutTo(ArchiveActivity.class);
+    }
+
+    @OnClick(R.id.score_button)
+    public void startAchievement() {
+        try {
+            setViewForPopup(this);
+            startActivityForResult(Games.Achievements.getAchievementsIntent(Jaboog.getGoogleApiHelper().mGoogleApiClient), 2);
+        } catch (IllegalStateException e) {
+            Jaboog.getGoogleApiHelper().mGoogleApiClient.connect();
+            noInternet(this);
+        }
     }
 
     @Override

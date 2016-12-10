@@ -74,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:clickable="true"
             app:pco_label="@string/quiz_score"
             app:pco_src="@drawable/cup" />
 
@@ -82,6 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:clickable="true"
             app:pco_label="@string/quiz_question_id"
             app:pco_src="@drawable/book_open_variant" />
 
