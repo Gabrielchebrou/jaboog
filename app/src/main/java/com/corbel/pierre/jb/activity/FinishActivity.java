@@ -12,6 +12,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.app.Jaboog;
@@ -48,6 +49,10 @@ public class FinishActivity extends Activity {
     BeautifulButtonWithImage rateButton;
     @BindView(R.id.archive_button)
     BeautifulButtonWithImage archiveButton;
+    @BindView(R.id.jb_logo)
+    ImageView jbLogo;
+    @BindView(R.id.header_text_view)
+    AutoResizeTextView headerTextView;
 
     @BindView(R.id.fab)
     FloatingActionButton fab;
@@ -56,7 +61,6 @@ public class FinishActivity extends Activity {
     AdView adView;
 
     private DbHelper db;
-    private Question currentQuestion;
     private int questionId;
     private int score;
     private Handler handler = new Handler();
@@ -67,6 +71,7 @@ public class FinishActivity extends Activity {
     private Animation clockButtonAnimation;
     private Animation rateButtonAnimation;
     private Animation archiveButtonAnimation;
+    private Animation logoAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +103,7 @@ public class FinishActivity extends Activity {
 
         scoreButton.setText(getString(R.string.quiz_score, score));
         clockButton.setText(getString(R.string.finish_time_left, timeLeft));
+        headerTextView.setText(serie.getName());
 
         // Prepare Ad
         if (preferences.getBoolean("AD_ENABLED", true)) {
@@ -115,29 +121,34 @@ public class FinishActivity extends Activity {
         rateButtonAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_in);
         archiveButtonAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_in);
         fabAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_in);
+        logoAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_in_your_face);
 
         // Anim In
-        headerCardViewAnimation.setStartOffset(0);
+        logoAnimation.setStartOffset(0);
+        jbLogo.setVisibility(View.VISIBLE);
+        jbLogo.startAnimation(logoAnimation);
+
+        headerCardViewAnimation.setStartOffset(2000);
         headerCardView.setVisibility(View.VISIBLE);
         headerCardView.startAnimation(headerCardViewAnimation);
 
-        scoreButtonAnimation.setStartOffset(100);
+        scoreButtonAnimation.setStartOffset(2100);
         scoreButton.setVisibility(View.VISIBLE);
         scoreButton.startAnimation(scoreButtonAnimation);
 
-        clockButtonAnimation.setStartOffset(200);
+        clockButtonAnimation.setStartOffset(2200);
         clockButton.setVisibility(View.VISIBLE);
         clockButton.startAnimation(clockButtonAnimation);
 
-        rateButtonAnimation.setStartOffset(300);
+        rateButtonAnimation.setStartOffset(2300);
         rateButton.setVisibility(View.VISIBLE);
         rateButton.startAnimation(rateButtonAnimation);
 
-        archiveButtonAnimation.setStartOffset(400);
+        archiveButtonAnimation.setStartOffset(2400);
         archiveButton.setVisibility(View.VISIBLE);
         archiveButton.startAnimation(archiveButtonAnimation);
 
-        fabAnimation.setStartOffset(500);
+        fabAnimation.setStartOffset(2500);
         fab.setVisibility(View.VISIBLE);
         fab.startAnimation(fabAnimation);
     }

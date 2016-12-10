@@ -245,7 +245,6 @@ public class QuizActivity extends Activity {
 
         scoreTextView.setText(getString(R.string.quiz_score, score));
 
-        //questionId = 30;
         if (questionId < 30) {
             startQuestion(++questionId);
         } else {
