@@ -108,11 +108,13 @@ public class ResultActivity extends Activity {
         wikiButton.setWikiUnderline();
 
         // Prepare Ad
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(getString(R.string.ad_nexus_5_id))
-                .addTestDevice(getString(R.string.ad_nexus_5_X_id))
-                .build();
-        adView.loadAd(adRequest);
+        if (preferences.getBoolean("AD_ENABLED", true)) {
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice(getString(R.string.ad_nexus_5_id))
+                    .addTestDevice(getString(R.string.ad_nexus_5_X_id))
+                    .build();
+            adView.loadAd(adRequest);
+        }
 
         // Init Animations
         questionCardViewAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_in);

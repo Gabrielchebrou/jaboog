@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -19,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.downloader.SerieDownloader;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
@@ -62,6 +65,8 @@ public class ArchiveActivity extends Activity {
 
     private Handler handler = new Handler();
     private DbHelper db;
+    private boolean isFirstCard = true;
+    private int cardNumber = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,21 +144,56 @@ public class ArchiveActivity extends Activity {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
 
-        int dp = getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin);
+        int dp = getResources().getDimensionPixelSize(R.dimen.dp_24_margin);
         int dp_vertical = getResources().getDimensionPixelSize(R.dimen.dp_8_margin);
         params.setMargins(dp, dp_vertical, dp, dp_vertical);
         serieCardView.setLayoutParams(params);
+        Animation cardAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_in);
 
-        serieCardView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                new SerieDownloader(ArchiveActivity.this, true).execute(serie.getUrl());
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("SERIE_NAME_PREF", serie.getName());
-                editor.putInt("CURRENT_SERIE_ID_PREF", serie.getId());
-                editor.apply();
-            }
-        });
+        if (isFirstCard || preferences.getBoolean("PREMIUM_ENABLED", false)) {
+            serieCardView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    new SerieDownloader(ArchiveActivity.this, true).execute(serie.getUrl());
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("SERIE_NAME_PREF", serie.getName());
+                    editor.putInt("CURRENT_SERIE_ID_PREF", serie.getId());
+                    editor.apply();
+                }
+            });
+        }
 
+        if (!isFirstCard && !preferences.getBoolean("PREMIUM_ENABLED", false)) {
+            serieCardView.setBackgroundColor(getResources().getColor(R.color.material_color_grey_200));
+            serieCardView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    new MaterialDialog.Builder(ArchiveActivity.this)
+                            .iconRes(R.mipmap.ic_launcher)
+                            .limitIconToDefaultSize() // limits the displayed icon size to 48dp
+                            .title("Devenir Premium")
+                            .content("Voulez-vous devenir Premium afin de pouvoir jouer avec les anciennes séries et ne plus avoir de publicités?")
+                            .positiveText("Oui")
+                            .negativeText("Non")
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    animateOutTo(IAPActivity.class);
+                                }
+                            })
+                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                }
+                            })
+                            .canceledOnTouchOutside(false)
+                            .show();
+                }
+            });
+        }
+
+        cardAnimation.setStartOffset(cardNumber * 100);
+        serieCardView.startAnimation(cardAnimation);
+        cardNumber++;
+        isFirstCard = false;
         scrollView.addView(serieCardView);
     }
 

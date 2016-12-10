@@ -175,6 +175,7 @@ public class IAPActivity extends Activity {
                 jokersLeftTextView.setText(getString(R.string.iap_jokers_left, joker));
             } else if (result.isSuccess() && ITEM_SKU.equals(getString(R.string.premium))) {
                 mEditor.putBoolean("PREMIUM_ENABLED", true);
+                mEditor.putBoolean("AD_ENABLED", false);
                 mEditor.apply();
             } else {
                 Snackbar.make(findViewById(android.R.id.content), getString(R.string.internet_failed), Snackbar.LENGTH_LONG)

@@ -37,7 +37,7 @@
     <string name="navigation_drawer_rate">Noter l\'application</string>
     <string name="navigation_drawer_about">A propos</string>
     <string name="navigation_drawer_help">Aide</string>
-    <string name="navigation_drawer_profil">Profile</string>
+    <string name="navigation_drawer_profil">Statistiques</string>
 
     <!-- Toolbar -->
     <string name="action_settings">Settings</string>

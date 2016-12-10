@@ -28,7 +28,7 @@ public class Jaboog extends MultiDexApplication {
     }
 
     static {
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+            AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
     @Override
