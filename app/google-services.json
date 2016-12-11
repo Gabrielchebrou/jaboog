@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "750736924665",
+    "project_id": "jaboog-24680914"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750736924665:android:62154a2c652d646c",
+        "android_client_info": {
+          "package_name": "com.corbel.pierre.jb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750736924665-r305d6e4sf3o0m6p2ao3penv14vcktdd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.corbel.pierre.jb",
+            "certificate_hash": "C43D22DB82B2802A8F3D017F366E56EF63B2FDE1"
+          }
+        },
+        {
+          "client_id": "750736924665-i4b7vqrv72j4pg7ahn3v761lrkcaajfj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.corbel.pierre.jb",
+            "certificate_hash": "DD283027EC7D30BE1AA468223B1FC5375F0AF299"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsOSfIZmj5lcanC9jQtB-UbHgRJP87_a8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-72525290-2"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
