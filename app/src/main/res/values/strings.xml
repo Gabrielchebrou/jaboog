@@ -10,6 +10,8 @@
     <string name="server_version">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/version.txt</string>
     <string name="server_archive">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/current/archive.txt</string>
     <string name="server_alpha">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/alpha/serie.txt</string>
+    <string name="server_photo">https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/bin/photo.jpg</string>
+
 
     <!-- In-App-Purchase -->
     <string name="noads">com.corbel.pierre.jb.noads</string>

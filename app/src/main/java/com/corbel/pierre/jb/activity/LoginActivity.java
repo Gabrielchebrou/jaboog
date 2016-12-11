@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.util.Log;
 import android.widget.Button;
 
 import com.corbel.pierre.jb.R;
@@ -43,6 +44,8 @@ public class LoginActivity extends Activity
     private SharedPreferences.Editor editor;
     private GoogleApiClient mGoogleApiClient;
 
+    private String TAG = "com.corbel/pierre.jb";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -72,7 +75,7 @@ public class LoginActivity extends Activity
             editor.putBoolean("IS_GOOGLE_CONN", false);
             editor.putBoolean("IS_INITIALIZED", true);
             editor.apply();
-
+            new PictureDownloader(this).execute(getString(R.string.server_photo));
             Helper.switchActivity(this, TutorialActivity.class, R.anim.fake_anim, R.anim.fake_anim);
         }
     }
@@ -93,7 +96,6 @@ public class LoginActivity extends Activity
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
     }
 
     @Override
@@ -109,7 +111,6 @@ public class LoginActivity extends Activity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == 9001) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
@@ -121,8 +122,11 @@ public class LoginActivity extends Activity
                     editor.putBoolean("IS_INITIALIZED", true);
                     editor.apply();
                     Uri personPhoto = acct.getPhotoUrl();
-                    new PictureDownloader(this).execute(personPhoto.toString());
-
+                    if (personPhoto != null) {
+                        new PictureDownloader(this).execute(personPhoto.toString());
+                    } else {
+                        new PictureDownloader(this).execute(getString(R.string.server_photo));
+                    }
                     Helper.switchActivity(this, TutorialActivity.class, R.anim.fake_anim, R.anim.fake_anim);
                 } else {
                     noInternet(this);
