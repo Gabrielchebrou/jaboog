@@ -275,7 +275,7 @@ public class QuizActivity extends Activity {
             AchievementHelper.checkJokerAchievement(this);
             LeaderBoardHelper.incrementUsedJokers(this);
         } else {
-            int jokerInStock = preferences.getInt("JOKER_IN_STOCK", 5);
+            int jokerInStock = preferences.getInt("JOKER_IN_STOCK", 0);
             if (jokerInStock > 0 && hasNotConsumedJoker && questionId >= 10) {
                 createJokerDialog(jokerInStock);
                 button.setVisibility(View.INVISIBLE);
@@ -384,7 +384,7 @@ public class QuizActivity extends Activity {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         SharedPreferences.Editor editor = preferences.edit();
-                        int jokerInStock = preferences.getInt("JOKER_IN_STOCK", 5);
+                        int jokerInStock = preferences.getInt("JOKER_IN_STOCK", 0);
                         editor.putInt("JOKER_IN_STOCK", --jokerInStock);
                         editor.apply();
                         countDown.resume();

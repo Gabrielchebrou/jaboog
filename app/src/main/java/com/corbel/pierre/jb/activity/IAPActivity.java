@@ -67,7 +67,7 @@ public class IAPActivity extends Activity {
         ButterKnife.bind(this);
         setStatusBarColor(this);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        jokersLeftTextView.setText(getString(R.string.iap_jokers_left, preferences.getInt("JOKER_IN_STOCK", 5)));
+        jokersLeftTextView.setText(getString(R.string.iap_jokers_left, preferences.getInt("JOKER_IN_STOCK", 0)));
 
         // Init Animations
         buyCardViewAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_in);
