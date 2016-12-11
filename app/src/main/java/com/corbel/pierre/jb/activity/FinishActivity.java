@@ -8,6 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.animation.Animation;
@@ -16,6 +19,8 @@ import android.widget.ImageView;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.app.Jaboog;
+import com.corbel.pierre.jb.downloader.PictureDownloader;
+import com.corbel.pierre.jb.lib.AchievementHelper;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.DbHelper;
 import com.corbel.pierre.jb.lib.Helper;
@@ -26,6 +31,12 @@ import com.corbel.pierre.jb.view.BeautifulButtonWithImage;
 import com.corbel.pierre.jb.view.FloatingActionButton;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 
 import butterknife.BindView;
@@ -36,7 +47,8 @@ import static com.corbel.pierre.jb.lib.Helper.noInternet;
 import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
 import static com.corbel.pierre.jb.lib.Helper.setViewForPopup;
 
-public class FinishActivity extends Activity {
+public class FinishActivity extends Activity implements
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     @BindView(R.id.header_card_view)
     CardView headerCardView;
@@ -73,6 +85,10 @@ public class FinishActivity extends Activity {
     private Animation archiveButtonAnimation;
     private Animation logoAnimation;
 
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+    private GoogleApiClient mGoogleApiClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,9 +101,19 @@ public class FinishActivity extends Activity {
         String timeLeft = getIntent().getExtras().getString("timeLeft");
         score = getIntent().getExtras().getInt("score");
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        mGoogleApiClient.connect();
+
         LeaderBoardHelper.incrementBestScore(this, score);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int id = preferences.getInt("CURRENT_SERIE_ID_PREF", 0);
         Serie serie = db.getSerie(id);
 
@@ -155,25 +181,22 @@ public class FinishActivity extends Activity {
 
     @OnClick(R.id.score_button)
     public void startAchievement() {
-        try {
-            setViewForPopup(this);
-            startActivityForResult(Games.Achievements.getAchievementsIntent(Jaboog.getGoogleApiHelper().mGoogleApiClient), 2);
-        } catch (IllegalStateException e) {
-            Jaboog.getGoogleApiHelper().mGoogleApiClient.connect();
-            noInternet(this);
+        if (preferences.getBoolean("IS_GOOGLE_CONN", false)) {
+            AchievementHelper.displayAchievement(this);
+        } else {
+            loginWithGoogle();
         }
     }
 
     @OnClick(R.id.clock_button)
     public void startLeaderBoard() {
-        try {
-            setViewForPopup(this);
-            startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(Jaboog.getGoogleApiHelper().mGoogleApiClient), 2);
-        } catch (IllegalStateException e) {
-            Jaboog.getGoogleApiHelper().mGoogleApiClient.connect();
-            noInternet(this);
+        if (preferences.getBoolean("IS_GOOGLE_CONN", false)) {
+            LeaderBoardHelper.displayLeaderBoard(this);
+        } else {
+            loginWithGoogle();
         }
     }
+
 
     @OnClick(R.id.rate_button)
     public void rateApp() {
@@ -243,5 +266,61 @@ public class FinishActivity extends Activity {
                 Helper.switchActivity(FinishActivity.this, toActivity, R.anim.fake_anim, R.anim.fake_anim);
             }
         }, 700);
+    }
+
+    public void loginWithGoogle() {
+        if (mGoogleApiClient.isConnected()) {
+            editor = preferences.edit();
+            editor.putBoolean("IS_GOOGLE_CONN", true);
+            editor.apply();
+            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+            startActivityForResult(signInIntent, 9001);
+        } else {
+            noInternet(this);
+            mGoogleApiClient.connect();
+        }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        noInternet(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 9001) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                // Get account information
+                GoogleSignInAccount acct = result.getSignInAccount();
+                if (acct != null) {
+                    String personName = acct.getDisplayName();
+                    editor = preferences.edit();
+                    editor.putString("NAME_PREF", personName);
+                    editor.putBoolean("IS_INITIALIZED", true);
+                    editor.apply();
+                    Uri personPhoto = acct.getPhotoUrl();
+                    if (personPhoto != null) {
+                        new PictureDownloader(this).execute(personPhoto.toString());
+                    } else {
+                        new PictureDownloader(this).execute(getString(R.string.server_photo));
+                    }
+                } else {
+                    noInternet(this);
+                }
+            } else {
+                noInternet(this);
+            }
+        }
     }
 }

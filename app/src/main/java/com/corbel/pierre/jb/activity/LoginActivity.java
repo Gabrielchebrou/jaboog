@@ -9,10 +9,10 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.util.Log;
 import android.widget.Button;
 
 import com.corbel.pierre.jb.R;
+import com.corbel.pierre.jb.app.Jaboog;
 import com.corbel.pierre.jb.downloader.PictureDownloader;
 import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.view.FloatingActionButton;
@@ -44,8 +44,6 @@ public class LoginActivity extends Activity
     private SharedPreferences.Editor editor;
     private GoogleApiClient mGoogleApiClient;
 
-    private String TAG = "com.corbel/pierre.jb";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -55,7 +53,6 @@ public class LoginActivity extends Activity
         ButterKnife.bind(this);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        editor = preferences.edit();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .build();
@@ -71,6 +68,7 @@ public class LoginActivity extends Activity
     @OnClick(R.id.button)
     public void login() {
         if (!editText.getText().toString().trim().equals("")) {
+            editor = preferences.edit();
             editor.putString("NAME_PREF", editText.getText().toString());
             editor.putBoolean("IS_GOOGLE_CONN", false);
             editor.putBoolean("IS_INITIALIZED", true);
@@ -83,6 +81,7 @@ public class LoginActivity extends Activity
     @OnClick(R.id.fab)
     public void loginWithGoogle() {
         if (mGoogleApiClient.isConnected()) {
+            editor = preferences.edit();
             editor.putBoolean("IS_GOOGLE_CONN", true);
             editor.apply();
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
@@ -91,7 +90,6 @@ public class LoginActivity extends Activity
             noInternet(this);
             mGoogleApiClient.connect();
         }
-
     }
 
     @Override
@@ -118,6 +116,7 @@ public class LoginActivity extends Activity
                 GoogleSignInAccount acct = result.getSignInAccount();
                 if (acct != null) {
                     String personName = acct.getDisplayName();
+                    editor = preferences.edit();
                     editor.putString("NAME_PREF", personName);
                     editor.putBoolean("IS_INITIALIZED", true);
                     editor.apply();
@@ -134,8 +133,6 @@ public class LoginActivity extends Activity
             } else {
                 noInternet(this);
             }
-        } else {
-            noInternet(this);
         }
     }
 }

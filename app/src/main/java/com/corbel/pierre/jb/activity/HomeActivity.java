@@ -1,5 +1,6 @@
 package com.corbel.pierre.jb.activity;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,12 +9,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,17 +28,26 @@ import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.app.Jaboog;
 import com.corbel.pierre.jb.downloader.ArchiveDownloader;
 import com.corbel.pierre.jb.downloader.NameDownloader;
+import com.corbel.pierre.jb.downloader.PictureDownloader;
 import com.corbel.pierre.jb.downloader.SerieDownloader;
+import com.corbel.pierre.jb.lib.AchievementHelper;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.CheckForUpdate;
 import com.corbel.pierre.jb.lib.DbHelper;
+import com.corbel.pierre.jb.lib.GoogleApiHelper;
 import com.corbel.pierre.jb.lib.Helper;
+import com.corbel.pierre.jb.lib.LeaderBoardHelper;
 import com.corbel.pierre.jb.lib.MediaPlayerHelper;
 import com.corbel.pierre.jb.lib.Serie;
 import com.corbel.pierre.jb.view.BeautifulButtonWithImage;
 import com.corbel.pierre.jb.view.FloatingActionButton;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 
@@ -48,7 +61,8 @@ import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
 import static com.corbel.pierre.jb.lib.Helper.setViewForPopup;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     @BindView(R.id.play_button)
     BeautifulButtonWithImage playButton;
@@ -72,7 +86,6 @@ public class HomeActivity extends AppCompatActivity
     AutoResizeTextView profileTextView;
     CircleImageView profileImageView;
 
-    private GoogleApiClient googleApiClient;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private Animation playButtonAnimation;
@@ -83,6 +96,7 @@ public class HomeActivity extends AppCompatActivity
     private Handler handler = new Handler();
     private MediaPlayer mediaPlayer;
     private DbHelper db;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +107,16 @@ public class HomeActivity extends AppCompatActivity
         prepareNavigationDrawer();
         mediaPlayer = MediaPlayerHelper.initializeMusicPlayer(this, R.raw.elevator);
 
-        googleApiClient = Jaboog.getGoogleApiHelper().mGoogleApiClient;
-
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        mGoogleApiClient.connect();
 
         if (preferences.getBoolean("AD_ENABLED", true)) {
             AdRequest adRequest = new AdRequest.Builder()
@@ -159,23 +180,19 @@ public class HomeActivity extends AppCompatActivity
 
     @OnClick(R.id.achievement_button)
     public void startAchievement() {
-        try {
-            setViewForPopup(this);
-            startActivityForResult(Games.Achievements.getAchievementsIntent(googleApiClient), 2);
-        } catch (IllegalStateException e) {
-            googleApiClient.connect();
-            noInternet(this);
+        if (preferences.getBoolean("IS_GOOGLE_CONN", false)) {
+            AchievementHelper.displayAchievement(this);
+        } else {
+            loginWithGoogle();
         }
     }
 
     @OnClick(R.id.leaderboard_button)
     public void startLeaderBoard() {
-        try {
-            setViewForPopup(this);
-            startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(googleApiClient), 2);
-        } catch (IllegalStateException e) {
-            googleApiClient.connect();
-            noInternet(this);
+        if (preferences.getBoolean("IS_GOOGLE_CONN", false)) {
+            LeaderBoardHelper.displayLeaderBoard(this);
+        } else {
+            loginWithGoogle();
         }
     }
 
@@ -308,5 +325,63 @@ public class HomeActivity extends AppCompatActivity
     public void onDestroy() {
         super.onDestroy();
         MediaPlayerHelper.closePlayer(mediaPlayer);
+    }
+
+    public void loginWithGoogle() {
+        if (mGoogleApiClient.isConnected()) {
+            editor = preferences.edit();
+            editor.putBoolean("IS_GOOGLE_CONN", true);
+            editor.apply();
+            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+            startActivityForResult(signInIntent, 9001);
+        } else {
+            noInternet(this);
+            mGoogleApiClient.connect();
+        }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        noInternet(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 9001) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                // Get account information
+                GoogleSignInAccount acct = result.getSignInAccount();
+                if (acct != null) {
+                    String personName = acct.getDisplayName();
+                    editor = preferences.edit();
+                    editor.putString("NAME_PREF", personName);
+                    editor.putBoolean("IS_INITIALIZED", true);
+                    editor.apply();
+                    Uri personPhoto = acct.getPhotoUrl();
+                    if (personPhoto != null) {
+                        new PictureDownloader(this).execute(personPhoto.toString());
+                    } else {
+                        new PictureDownloader(this).execute(getString(R.string.server_photo));
+                    }
+                    Helper.switchActivity(this, HomeActivity.class, R.anim.fake_anim, R.anim.fake_anim);
+                } else {
+                    noInternet(this);
+                }
+            } else {
+                noInternet(this);
+            }
+        }
     }
 }

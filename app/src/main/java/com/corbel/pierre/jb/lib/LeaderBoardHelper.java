@@ -8,7 +8,20 @@ import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.app.Jaboog;
 import com.google.android.gms.games.Games;
 
+import static com.corbel.pierre.jb.lib.Helper.noInternet;
+import static com.corbel.pierre.jb.lib.Helper.setViewForPopup;
+
 public class LeaderBoardHelper {
+
+    public static void displayLeaderBoard(Activity activity) {
+        try {
+            setViewForPopup(activity);
+            activity.startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(Jaboog.getGoogleApiHelper().mGoogleApiClient), 2);
+        } catch (IllegalStateException e) {
+            Jaboog.getGoogleApiHelper().mGoogleApiClient.connect();
+            noInternet(activity);
+        }
+    }
 
     public static void incrementBestScore(Activity activity, int score) {
 
