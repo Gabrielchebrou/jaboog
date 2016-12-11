@@ -65,7 +65,6 @@ public class ArchiveActivity extends Activity {
 
     private Handler handler = new Handler();
     private DbHelper db;
-    private boolean isFirstCard = true;
     private int cardNumber = 1;
 
     @Override
@@ -150,7 +149,7 @@ public class ArchiveActivity extends Activity {
         serieCardView.setLayoutParams(params);
         Animation cardAnimation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_in);
 
-        if (isFirstCard || preferences.getBoolean("PREMIUM_ENABLED", false)) {
+        if (cardNumber <= 2 || preferences.getBoolean("PREMIUM_ENABLED", false)) {
             serieCardView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     new SerieDownloader(ArchiveActivity.this, true).execute(serie.getUrl());
@@ -162,7 +161,7 @@ public class ArchiveActivity extends Activity {
             });
         }
 
-        if (!isFirstCard && !preferences.getBoolean("PREMIUM_ENABLED", false)) {
+        if (cardNumber > 2 && !preferences.getBoolean("PREMIUM_ENABLED", false)) {
             serieCardView.setBackgroundColor(getResources().getColor(R.color.material_color_grey_200));
             serieCardView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -193,7 +192,6 @@ public class ArchiveActivity extends Activity {
         cardAnimation.setStartOffset(cardNumber * 100);
         serieCardView.startAnimation(cardAnimation);
         cardNumber++;
-        isFirstCard = false;
         scrollView.addView(serieCardView);
     }
 
