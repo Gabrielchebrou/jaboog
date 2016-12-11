@@ -4,12 +4,9 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.downloader.ArchiveDownloader;
-import com.corbel.pierre.jb.downloader.NameDownloader;
-import com.corbel.pierre.jb.downloader.SerieDownloader;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

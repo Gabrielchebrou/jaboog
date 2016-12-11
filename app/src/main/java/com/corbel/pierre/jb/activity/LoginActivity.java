@@ -12,7 +12,6 @@ import android.support.design.widget.TextInputEditText;
 import android.widget.Button;
 
 import com.corbel.pierre.jb.R;
-import com.corbel.pierre.jb.app.Jaboog;
 import com.corbel.pierre.jb.downloader.PictureDownloader;
 import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.view.FloatingActionButton;

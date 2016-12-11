@@ -41,11 +41,11 @@ import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
 
 public class QuizActivity extends Activity {
 
+    public CountDownTimerWithPause countDown;
     @BindView(R.id.question_card_view)
     CardView questionCardView;
     @BindView(R.id.question_text_view)
     AutoResizeTextView questionTextView;
-
     @BindView(R.id.button_1)
     BeautifulButton button_1;
     @BindView(R.id.button_2)
@@ -54,10 +54,8 @@ public class QuizActivity extends Activity {
     BeautifulButton button_3;
     @BindView(R.id.button_4)
     BeautifulButton button_4;
-
     @BindView(R.id.fab)
     FloatingActionButton fab;
-
     @BindView(R.id.count_down_text_view)
     AutoResizeTextView countDownTextView;
     @BindView(R.id.score_text_view)
@@ -66,7 +64,6 @@ public class QuizActivity extends Activity {
     AutoResizeTextView idTextView;
     @BindView(R.id.bonus_text_view)
     TextView bonusTextView;
-
     private Vibrator vibrator;
     private int score = 0;
     private int questionId = 0;
@@ -87,8 +84,6 @@ public class QuizActivity extends Activity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private MediaPlayer mediaPlayer;
-
-    public CountDownTimerWithPause countDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

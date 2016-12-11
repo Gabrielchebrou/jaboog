@@ -1,6 +1,5 @@
 package com.corbel.pierre.jb.activity;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,7 +16,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,16 +23,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.corbel.pierre.jb.R;
-import com.corbel.pierre.jb.app.Jaboog;
 import com.corbel.pierre.jb.downloader.ArchiveDownloader;
-import com.corbel.pierre.jb.downloader.NameDownloader;
 import com.corbel.pierre.jb.downloader.PictureDownloader;
-import com.corbel.pierre.jb.downloader.SerieDownloader;
 import com.corbel.pierre.jb.lib.AchievementHelper;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.CheckForUpdate;
 import com.corbel.pierre.jb.lib.DbHelper;
-import com.corbel.pierre.jb.lib.GoogleApiHelper;
 import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.lib.LeaderBoardHelper;
 import com.corbel.pierre.jb.lib.MediaPlayerHelper;
@@ -49,7 +43,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.games.Games;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,7 +51,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.corbel.pierre.jb.lib.Helper.noInternet;
 import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
-import static com.corbel.pierre.jb.lib.Helper.setViewForPopup;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,

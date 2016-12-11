@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
@@ -20,11 +19,7 @@ import android.view.WindowManager;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.app.Jaboog;
-import com.corbel.pierre.jb.downloader.PictureDownloader;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.plus.Plus;
-import com.google.android.gms.plus.model.people.Person;
 
 import java.util.Calendar;
 import java.util.Locale;

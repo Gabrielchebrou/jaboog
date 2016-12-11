@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.lib.Helper;

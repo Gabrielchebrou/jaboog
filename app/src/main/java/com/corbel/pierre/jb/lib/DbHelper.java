@@ -5,10 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 import android.util.Log;
-
-import com.corbel.pierre.jb.R;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -90,10 +87,10 @@ public class DbHelper extends SQLiteOpenHelper {
         int highScore = 0;
         int progress = 0;
 
-        String sql = "INSERT INTO "+ dbSerieTable + "(id, url, name, highScore, progress) "
-        + "SELECT " + id + ",\"" + url + "\",\"" + name + "\"," + highScore + "," + progress
-        + " WHERE NOT EXISTS(SELECT 1 FROM "+ dbSerieTable + " WHERE "
-        + "id = " + id + ");";
+        String sql = "INSERT INTO " + dbSerieTable + "(id, url, name, highScore, progress) "
+                + "SELECT " + id + ",\"" + url + "\",\"" + name + "\"," + highScore + "," + progress
+                + " WHERE NOT EXISTS(SELECT 1 FROM " + dbSerieTable + " WHERE "
+                + "id = " + id + ");";
 
         db.execSQL(sql);
     }

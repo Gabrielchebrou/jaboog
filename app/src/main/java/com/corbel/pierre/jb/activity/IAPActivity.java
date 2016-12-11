@@ -31,6 +31,8 @@ import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
 
 public class IAPActivity extends Activity {
 
+    private static final String TAG = "com.corbel.pierre.jb";
+    private static String ITEM_SKU;
     @BindView(R.id.buy_card_view)
     CardView buyCardView;
     @BindView(R.id.premium_table_row)
@@ -45,19 +47,66 @@ public class IAPActivity extends Activity {
     FloatingActionButton fab;
     @BindView(R.id.jokers_left_text_view)
     AutoResizeTextView jokersLeftTextView;
-
-    private static final String TAG = "com.corbel.pierre.jb";
-    private static String ITEM_SKU;
     private SharedPreferences preferences;
+    IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
+        public void onConsumeFinished(Purchase purchase, IabResult result) {
+            SharedPreferences.Editor mEditor = preferences.edit();
+            if (result.isSuccess() && ITEM_SKU.equals(getString(R.string.noads))) {
+                mEditor.putBoolean("AD_ENABLED", false);
+                mEditor.apply();
+            } else if (result.isSuccess() && ITEM_SKU.equals(getString(R.string.littleheart))) {
+                int joker = preferences.getInt("JOKER_IN_STOCK", 0) + 25;
+                mEditor.putInt("JOKER_IN_STOCK", joker);
+                mEditor.apply();
+                jokersLeftTextView.setText(getString(R.string.iap_jokers_left, joker));
+            } else if (result.isSuccess() && ITEM_SKU.equals(getString(R.string.bigheart))) {
+                int joker = preferences.getInt("JOKER_IN_STOCK", 0) + 50;
+                mEditor.putInt("JOKER_IN_STOCK", joker);
+                mEditor.apply();
+                jokersLeftTextView.setText(getString(R.string.iap_jokers_left, joker));
+            } else if (result.isSuccess() && ITEM_SKU.equals(getString(R.string.premium))) {
+                mEditor.putBoolean("PREMIUM_ENABLED", true);
+                mEditor.putBoolean("AD_ENABLED", false);
+                mEditor.apply();
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), getString(R.string.internet_failed), Snackbar.LENGTH_LONG)
+                        .show();
+            }
+        }
+    };
     private IabHelper mHelper;
+    IabHelper.QueryInventoryFinishedListener mReceivedInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
+        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+            if (result.isFailure()) {
+                Snackbar.make(findViewById(android.R.id.content), getString(R.string.internet_failed), Snackbar.LENGTH_LONG)
+                        .show();
+            } else {
+                try {
+                    mHelper.consumeAsync(inventory.getPurchase(ITEM_SKU), mConsumeFinishedListener);
+                } catch (IabHelper.IabAsyncInProgressException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
+        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
+            if (result.isFailure()) {
+                Snackbar.make(findViewById(android.R.id.content), getString(R.string.internet_failed), Snackbar.LENGTH_LONG)
+                        .show();
+                return;
+            } else if (purchase.getSku().equals(ITEM_SKU)) {
+                consumeItem();
+            }
 
+        }
+    };
     private Animation buyCardViewAnimation;
     private Animation premiumTableRowAnimation;
     private Animation noAdTableRowAnimation;
     private Animation joker25TableRowAnimation;
     private Animation joker50TableRowAnimation;
     private Animation fabAnimation;
-
     private Handler handler = new Handler();
 
     @Override
@@ -156,62 +205,6 @@ public class IAPActivity extends Activity {
             e.printStackTrace();
         }
     }
-
-    IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
-        public void onConsumeFinished(Purchase purchase, IabResult result) {
-            SharedPreferences.Editor mEditor = preferences.edit();
-            if (result.isSuccess() && ITEM_SKU.equals(getString(R.string.noads))) {
-                mEditor.putBoolean("AD_ENABLED", false);
-                mEditor.apply();
-            } else if (result.isSuccess() && ITEM_SKU.equals(getString(R.string.littleheart))) {
-                int joker = preferences.getInt("JOKER_IN_STOCK", 0) + 25;
-                mEditor.putInt("JOKER_IN_STOCK", joker);
-                mEditor.apply();
-                jokersLeftTextView.setText(getString(R.string.iap_jokers_left, joker));
-            } else if (result.isSuccess() && ITEM_SKU.equals(getString(R.string.bigheart))) {
-                int joker = preferences.getInt("JOKER_IN_STOCK", 0) + 50;
-                mEditor.putInt("JOKER_IN_STOCK", joker);
-                mEditor.apply();
-                jokersLeftTextView.setText(getString(R.string.iap_jokers_left, joker));
-            } else if (result.isSuccess() && ITEM_SKU.equals(getString(R.string.premium))) {
-                mEditor.putBoolean("PREMIUM_ENABLED", true);
-                mEditor.putBoolean("AD_ENABLED", false);
-                mEditor.apply();
-            } else {
-                Snackbar.make(findViewById(android.R.id.content), getString(R.string.internet_failed), Snackbar.LENGTH_LONG)
-                        .show();
-            }
-        }
-    };
-
-
-    IabHelper.QueryInventoryFinishedListener mReceivedInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-            if (result.isFailure()) {
-                Snackbar.make(findViewById(android.R.id.content), getString(R.string.internet_failed), Snackbar.LENGTH_LONG)
-                        .show();
-            } else {
-                try {
-                    mHelper.consumeAsync(inventory.getPurchase(ITEM_SKU), mConsumeFinishedListener);
-                } catch (IabHelper.IabAsyncInProgressException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    };
-
-    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
-        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-            if (result.isFailure()) {
-                Snackbar.make(findViewById(android.R.id.content), getString(R.string.internet_failed), Snackbar.LENGTH_LONG)
-                        .show();
-                return;
-            } else if (purchase.getSku().equals(ITEM_SKU)) {
-                consumeItem();
-            }
-
-        }
-    };
 
     @Override
     protected void onPause() {

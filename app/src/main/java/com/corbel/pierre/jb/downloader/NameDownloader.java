@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
-import android.widget.TextView;
 
 import com.corbel.pierre.jb.R;
-import com.corbel.pierre.jb.view.BeautifulButton;
 import com.corbel.pierre.jb.view.BeautifulButtonWithImage;
 
 import java.io.BufferedReader;

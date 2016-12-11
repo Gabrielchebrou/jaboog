@@ -46,18 +46,18 @@ public class BeautifulButton extends RelativeLayout {
         attr.recycle();
     }
 
-    public void setText(String newText) {
-        textView.setText(newText);
-    }
-
     public String getText() {
         return textView.getText().toString();
     }
 
+    public void setText(String newText) {
+        textView.setText(newText);
+    }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_UP) {
-            if(hasOnClickListeners() && isClickable()) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            if (hasOnClickListeners() && isClickable()) {
                 callOnClick();
             }
         }

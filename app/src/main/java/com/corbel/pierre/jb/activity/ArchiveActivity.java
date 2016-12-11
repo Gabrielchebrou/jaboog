@@ -11,14 +11,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;

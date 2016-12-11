@@ -2,7 +2,6 @@ package com.corbel.pierre.jb.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -69,8 +68,8 @@ public class BeautifulButtonWithImage extends RelativeLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_UP) {
-            if(hasOnClickListeners()) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            if (hasOnClickListeners()) {
                 callOnClick();
             }
         }

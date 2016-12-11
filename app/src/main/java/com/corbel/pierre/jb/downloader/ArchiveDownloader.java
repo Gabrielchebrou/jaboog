@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
@@ -13,15 +12,12 @@ import android.view.View;
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.activity.ArchiveActivity;
 import com.corbel.pierre.jb.activity.HomeActivity;
-import com.corbel.pierre.jb.lib.DbHelper;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import me.leolin.shortcutbadger.ShortcutBadger;
 
 import static com.corbel.pierre.jb.lib.Helper.noInternet;
 
@@ -101,7 +97,7 @@ public class ArchiveDownloader extends AsyncTask<String, Void, Boolean> {
         mProgressDialog.dismiss();
     }
 
-    private  class SnackListener implements View.OnClickListener{
+    private class SnackListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             ((HomeActivity) activity).animateOutTo(ArchiveActivity.class);

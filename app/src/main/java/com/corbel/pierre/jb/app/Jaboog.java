@@ -17,6 +17,11 @@ import com.google.android.gms.analytics.Tracker;
 public class Jaboog extends MultiDexApplication {
 
     private static Jaboog mInstance;
+
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
+
     public GoogleApiHelper mGoogleApiHelper;
 
     public static synchronized Jaboog getInstance() {
@@ -25,10 +30,6 @@ public class Jaboog extends MultiDexApplication {
 
     public static GoogleApiHelper getGoogleApiHelper() {
         return getInstance().getGoogleApiHelperInstance();
-    }
-
-    static {
-            AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
     @Override

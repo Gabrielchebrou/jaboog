@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,7 +16,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.corbel.pierre.jb.R;
-import com.corbel.pierre.jb.app.Jaboog;
 import com.corbel.pierre.jb.downloader.PictureDownloader;
 import com.corbel.pierre.jb.lib.AchievementHelper;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
@@ -26,7 +24,6 @@ import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.lib.LeaderBoardHelper;
 import com.corbel.pierre.jb.lib.Question;
 import com.corbel.pierre.jb.lib.Serie;
-import com.corbel.pierre.jb.view.BeautifulButton;
 import com.corbel.pierre.jb.view.BeautifulButtonWithImage;
 import com.corbel.pierre.jb.view.FloatingActionButton;
 import com.google.android.gms.ads.AdRequest;
@@ -37,7 +34,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.games.Games;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +41,6 @@ import butterknife.OnClick;
 
 import static com.corbel.pierre.jb.lib.Helper.noInternet;
 import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
-import static com.corbel.pierre.jb.lib.Helper.setViewForPopup;
 
 public class ResultActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
@@ -12,10 +11,7 @@ import android.support.design.widget.Snackbar;
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.activity.ArchiveActivity;
 import com.corbel.pierre.jb.activity.CountDownActivity;
-import com.corbel.pierre.jb.activity.HomeActivity;
-import com.corbel.pierre.jb.activity.QuizActivity;
 import com.corbel.pierre.jb.lib.DbHelper;
-import com.corbel.pierre.jb.lib.Helper;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
