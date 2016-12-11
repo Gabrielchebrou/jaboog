@@ -3,6 +3,7 @@ package com.corbel.pierre.jb.lib;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.activity.CountDownActivity;
@@ -17,13 +18,13 @@ import static com.corbel.pierre.jb.lib.Helper.setViewForPopup;
 public class AchievementHelper {
 
     public static void displayAchievement(Activity activity) {
-        try {
-            setViewForPopup(activity);
-            activity.startActivityForResult(Games.Achievements.getAchievementsIntent(Jaboog.getGoogleApiHelper().mGoogleApiClient), 2);
-        } catch (IllegalStateException e) {
-            Jaboog.getGoogleApiHelper().mGoogleApiClient.connect();
-            noInternet(activity);
-        }
+            try {
+                setViewForPopup(activity);
+                activity.startActivityForResult(Games.Achievements.getAchievementsIntent(Jaboog.getGoogleApiHelper().mGoogleApiClient), 2);
+            } catch (IllegalStateException e) {
+                Jaboog.getGoogleApiHelper().mGoogleApiClient.connect();
+                noInternet(activity);
+            }
     }
 
     public static void checkConsecutiveAchievement(QuizActivity activity, int consecutive) {

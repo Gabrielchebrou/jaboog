@@ -110,8 +110,6 @@ public class DbHelper extends SQLiteOpenHelper {
                 + "progress = " + progress + " "
                 + "WHERE id = " + id + ";";
 
-        Log.d(TAG, sql);
-
         db.execSQL(sql);
     }
 
