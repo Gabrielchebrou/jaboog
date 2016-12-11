@@ -814,7 +814,14 @@ public class FloatingActionButton extends ImageButton {
 
     @Override
     public void setImageResource(int resId) {
-        Drawable drawable = getResources().getDrawable(resId);
+
+        Drawable drawable;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            drawable = getResources().getDrawable(resId);
+        } else {
+            drawable = VectorDrawableCompat.create(getResources(), resId, null);
+        }
+
         if (mIcon != drawable) {
             mIcon = drawable;
             updateBackground();
