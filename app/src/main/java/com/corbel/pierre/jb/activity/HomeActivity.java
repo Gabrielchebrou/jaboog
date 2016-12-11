@@ -110,13 +110,14 @@ public class HomeActivity extends AppCompatActivity
 
         mGoogleApiClient.connect();
 
-        if (preferences.getBoolean("AD_ENABLED", true)) {
+        // Disabled for first launch
+        /*if (preferences.getBoolean("AD_ENABLED", true)) {
             AdRequest adRequest = new AdRequest.Builder()
                     .addTestDevice(getString(R.string.ad_nexus_5_id))
                     .addTestDevice(getString(R.string.ad_nexus_5_X_id))
                     .build();
             adView.loadAd(adRequest);
-        }
+        }*/
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.inflateHeaderView(R.layout.drawer_header);
