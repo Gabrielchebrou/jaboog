@@ -11,8 +11,11 @@
     <string name="ga_logLevel">verbose</string>
 
     <screenName name="com.corbel.pierre.jb.activity.AboutActivity">About</screenName>
+    <screenName name="com.corbel.pierre.jb.activity.ArchiveActivity">Archive</screenName>
     <screenName name="com.corbel.pierre.jb.activity.CountDownActivity">Count Down</screenName>
+    <screenName name="com.corbel.pierre.jb.activity.FinishActivity">Finish</screenName>
     <screenName name="com.corbel.pierre.jb.activity.HomeActivity">Home</screenName>
+    <screenName name="com.corbel.pierre.jb.activity.IAPActivity">IAP</screenName>
     <screenName name="com.corbel.pierre.jb.activity.LoginActivity">Login</screenName>
     <screenName name="com.corbel.pierre.jb.activity.ProfileActivity">Profile</screenName>
     <screenName name="com.corbel.pierre.jb.activity.QuizActivity">Quiz</screenName>
