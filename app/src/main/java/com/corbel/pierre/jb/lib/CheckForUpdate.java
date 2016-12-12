@@ -55,7 +55,7 @@ public class CheckForUpdate extends AsyncTask<String, Void, String> {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
 
         if (newVersion == 0) {
-            noInternet(activity);
+            //noInternet(activity);
         } else {
 
             int oldVersion = preferences.getInt("VERSION_PREF", 0);
