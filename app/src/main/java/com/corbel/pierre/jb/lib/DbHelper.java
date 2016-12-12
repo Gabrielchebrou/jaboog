@@ -81,6 +81,33 @@ public class DbHelper extends SQLiteOpenHelper {
         setAllQuestions();
     }
 
+    public void createTablesIfNotExists(SQLiteDatabase db) {
+
+        this.db = db;
+
+        String createSql = "CREATE TABLE IF NOT EXISTS " + dbTable + " ( "
+                + id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + question + " TEXT, "
+                + answer_1 + " TEXT, "
+                + answer_2 + " TEXT, "
+                + answer_3 + " TEXT, "
+                + answer_4 + " TEXT, "
+                + goodAnswer + " TEXT, "
+                + theme + " TEXT, "
+                + url + " TEXT)";
+
+        db.execSQL(createSql);
+
+        String createSql2 = "CREATE TABLE IF NOT EXISTS " + dbSerieTable + " ( "
+                + "id INTEGER, "
+                + "url TEXT, "
+                + "name TEXT, "
+                + "highScore INTEGER, "
+                + "progress INTEGER)";
+
+        db.execSQL(createSql2);
+    }
+
     public void createSerieIfNotExists(SQLiteDatabase db, String id, String url, String name) {
 
         this.db = db;
@@ -232,7 +259,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public Serie getSerie(int serieId) {
 
-        String sql = "SELECT * FROM " + dbSerieTable + " WHERE id =" + serieId;
+        String sql = "SELECT * FROM " + dbSerieTable + " WHERE id = " + serieId;
 
         db = this.getReadableDatabase();
 

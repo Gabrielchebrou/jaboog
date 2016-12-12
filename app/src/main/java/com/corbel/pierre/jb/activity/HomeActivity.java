@@ -128,6 +128,7 @@ public class HomeActivity extends AppCompatActivity
 
         db = DbHelper.getInstance(this);
         int id = preferences.getInt("CURRENT_SERIE_ID_PREF", 0);
+        db.createTablesIfNotExists(db.getWritableDatabase());
         Serie serie = db.getSerie(id);
         currentButton.setText(serie.getName());
 
