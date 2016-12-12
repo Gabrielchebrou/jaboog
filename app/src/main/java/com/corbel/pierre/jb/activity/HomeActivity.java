@@ -128,9 +128,12 @@ public class HomeActivity extends AppCompatActivity
 
         db = DbHelper.getInstance(this);
         int id = preferences.getInt("CURRENT_SERIE_ID_PREF", 0);
-        db.createTablesIfNotExists(db.getWritableDatabase());
-        Serie serie = db.getSerie(id);
-        currentButton.setText(serie.getName());
+        if (id == 0) {
+            db.createTablesIfNotExists(db.getWritableDatabase());
+        } else {
+            Serie serie = db.getSerie(id);
+            currentButton.setText(serie.getName());
+        }
 
         new CheckForUpdate(this).execute(getResources().getString(R.string.server_version));
 

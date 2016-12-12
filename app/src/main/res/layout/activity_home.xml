@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                app:pco_label="Série : 10/30"
+                app:pco_label="Séries disponibles"
                 app:pco_src="@drawable/book_open_variant" />
 
         </LinearLayout>
