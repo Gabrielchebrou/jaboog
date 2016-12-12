@@ -22,7 +22,6 @@ public class AchievementHelper {
             activity.startActivityForResult(Games.Achievements.getAchievementsIntent(Jaboog.getGoogleApiHelper().mGoogleApiClient), 2);
         } catch (IllegalStateException e) {
             Jaboog.getGoogleApiHelper().mGoogleApiClient.connect();
-            noInternet(activity);
         }
     }
 

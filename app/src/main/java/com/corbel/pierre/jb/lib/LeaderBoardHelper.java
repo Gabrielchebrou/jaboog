@@ -19,7 +19,6 @@ public class LeaderBoardHelper {
             activity.startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(Jaboog.getGoogleApiHelper().mGoogleApiClient), 2);
         } catch (IllegalStateException e) {
             Jaboog.getGoogleApiHelper().mGoogleApiClient.connect();
-            noInternet(activity);
         }
     }
 

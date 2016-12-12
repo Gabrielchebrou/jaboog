@@ -43,6 +43,7 @@ public class Jaboog extends MultiDexApplication {
         super.onCreate();
         mInstance = this;
         mGoogleApiHelper = new GoogleApiHelper(this);
+        Jaboog.getGoogleApiHelper().mGoogleApiClient.connect();
 
         AnalyticsTrackers.initialize(this);
         AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
