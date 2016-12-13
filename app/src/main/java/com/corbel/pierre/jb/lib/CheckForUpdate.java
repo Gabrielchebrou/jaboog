@@ -12,8 +12,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import static com.corbel.pierre.jb.lib.Helper.noInternet;
-
 public class CheckForUpdate extends AsyncTask<String, Void, String> {
 
     private Activity activity;

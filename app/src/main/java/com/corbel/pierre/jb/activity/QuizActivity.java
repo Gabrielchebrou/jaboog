@@ -22,6 +22,7 @@ import com.corbel.pierre.jb.lib.AchievementHelper;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.CountDownTimerWithPause;
 import com.corbel.pierre.jb.lib.DbHelper;
+import com.corbel.pierre.jb.lib.GameHelper;
 import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.lib.LeaderBoardHelper;
 import com.corbel.pierre.jb.lib.MediaPlayerHelper;
@@ -39,9 +40,11 @@ import butterknife.OnClick;
 
 import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
 
-public class QuizActivity extends Activity {
+public class QuizActivity extends Activity
+        implements GameHelper.GameHelperListener {
 
     public CountDownTimerWithPause countDown;
+    public GameHelper mGameHelper;
     @BindView(R.id.question_card_view)
     CardView questionCardView;
     @BindView(R.id.question_text_view)
@@ -84,6 +87,8 @@ public class QuizActivity extends Activity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private MediaPlayer mediaPlayer;
+    private boolean isTryingToConnectAchievement = false;
+    private boolean isTryingToConnectLeaderBoard = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +99,12 @@ public class QuizActivity extends Activity {
         mediaPlayer = MediaPlayerHelper.initializeMusicPlayer(this, R.raw.funky);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        mGameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
+        mGameHelper.setup(this);
+        if (preferences.getBoolean("IS_GOOGLE_CONN", false)) {
+            mGameHelper.beginUserInitiatedSignIn();
+        }
 
         // Prepare FAB and footer info
         fab.setProgress(0, true);
@@ -482,5 +493,33 @@ public class QuizActivity extends Activity {
     @Override
     public void onBackPressed() {
         animateOutTo(HomeActivity.class);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGameHelper.onStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mGameHelper.onStop();
+    }
+
+    @Override
+    protected void onActivityResult(int request, int response, Intent data) {
+        super.onActivityResult(request, response, data);
+        mGameHelper.onActivityResult(request, response, data);
+    }
+
+    @Override
+    public void onSignInFailed() {
+
+    }
+
+    @Override
+    public void onSignInSucceeded() {
+
     }
 }

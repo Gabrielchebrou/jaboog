@@ -3,11 +3,9 @@ package com.corbel.pierre.jb.app;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
-import android.support.v7.app.AppCompatDelegate;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.lib.AnalyticsTrackers;
-import com.corbel.pierre.jb.lib.GoogleApiHelper;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
@@ -18,18 +16,8 @@ public class Jaboog extends MultiDexApplication {
 
     private static Jaboog mInstance;
 
-    static {
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-    }
-
-    public GoogleApiHelper mGoogleApiHelper;
-
     public static synchronized Jaboog getInstance() {
         return mInstance;
-    }
-
-    public static GoogleApiHelper getGoogleApiHelper() {
-        return getInstance().getGoogleApiHelperInstance();
     }
 
     @Override
@@ -42,15 +30,10 @@ public class Jaboog extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        mGoogleApiHelper = new GoogleApiHelper(this);
 
         AnalyticsTrackers.initialize(this);
         AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
         MobileAds.initialize(getApplicationContext(), getString(R.string.ad_app_id));
-    }
-
-    public GoogleApiHelper getGoogleApiHelperInstance() {
-        return this.mGoogleApiHelper;
     }
 
     public synchronized Tracker getGoogleAnalyticsTracker() {

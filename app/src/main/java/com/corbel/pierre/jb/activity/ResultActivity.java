@@ -8,8 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.animation.Animation;
@@ -20,6 +18,7 @@ import com.corbel.pierre.jb.downloader.PictureDownloader;
 import com.corbel.pierre.jb.lib.AchievementHelper;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.DbHelper;
+import com.corbel.pierre.jb.lib.GameHelper;
 import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.lib.LeaderBoardHelper;
 import com.corbel.pierre.jb.lib.Question;
@@ -28,12 +27,7 @@ import com.corbel.pierre.jb.view.BeautifulButtonWithImage;
 import com.corbel.pierre.jb.view.FloatingActionButton;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,14 +36,14 @@ import butterknife.OnClick;
 import static com.corbel.pierre.jb.lib.Helper.noInternet;
 import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
 
-public class ResultActivity extends Activity implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class ResultActivity extends Activity
+        implements GameHelper.GameHelperListener {
 
+    public GameHelper mGameHelper;
     @BindView(R.id.question_card_view)
     CardView questionCardView;
     @BindView(R.id.question_text_view)
     AutoResizeTextView questionTextView;
-
     @BindView(R.id.answer_button)
     BeautifulButtonWithImage answerButton;
     @BindView(R.id.wiki_button)
@@ -58,29 +52,24 @@ public class ResultActivity extends Activity implements
     BeautifulButtonWithImage scoreButton;
     @BindView(R.id.current_button)
     BeautifulButtonWithImage currentButton;
-
     @BindView(R.id.fab)
     FloatingActionButton fab;
-
     @BindView(R.id.ad_view)
     AdView adView;
-
     private DbHelper db;
     private Question currentQuestion;
     private int questionId;
     private int score;
     private Handler handler = new Handler();
-
     private Animation questionCardViewAnimation;
     private Animation fabAnimation;
     private Animation answerButtonAnimation;
     private Animation wikiButtonAnimation;
     private Animation scoreButtonAnimation;
     private Animation currentButtonAnimation;
-
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-    private GoogleApiClient mGoogleApiClient;
+    private boolean isTryingToConnectAchievement = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,14 +85,12 @@ public class ResultActivity extends Activity implements
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .build();
+        mGameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
+        mGameHelper.setup(this);
+        if (preferences.getBoolean("IS_GOOGLE_CONN", false)) {
+            mGameHelper.beginUserInitiatedSignIn();
+        }
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
-        mGoogleApiClient.connect();
         LeaderBoardHelper.incrementBestScore(this, score);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -197,10 +184,12 @@ public class ResultActivity extends Activity implements
 
     @OnClick(R.id.score_button)
     public void startAchievement() {
-        if (preferences.getBoolean("IS_GOOGLE_CONN", false)) {
+        try {
             AchievementHelper.displayAchievement(this);
-        } else {
-            loginWithGoogle();
+        } catch (Exception e) {
+            e.printStackTrace();
+            isTryingToConnectAchievement = true;
+            mGameHelper.beginUserInitiatedSignIn();
         }
     }
 
@@ -250,59 +239,50 @@ public class ResultActivity extends Activity implements
         }, 700);
     }
 
-    public void loginWithGoogle() {
-        if (mGoogleApiClient.isConnected()) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGameHelper.onStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mGameHelper.onStop();
+    }
+
+    @Override
+    protected void onActivityResult(int request, int response, Intent data) {
+        super.onActivityResult(request, response, data);
+        mGameHelper.onActivityResult(request, response, data);
+    }
+
+    @Override
+    public void onSignInFailed() {
+    }
+
+    @Override
+    public void onSignInSucceeded() {
+        if (!preferences.getBoolean("IS_GOOGLE_CONN", false)) {
+            String name = Games.Players.getCurrentPlayer(mGameHelper.getApiClient()).getDisplayName();
+            String photo = Games.Players.getCurrentPlayer(mGameHelper.getApiClient()).getIconImageUrl();
+
             editor = preferences.edit();
+            editor.putString("NAME_PREF", name);
+            editor.putBoolean("IS_INITIALIZED", true);
             editor.putBoolean("IS_GOOGLE_CONN", true);
             editor.apply();
-            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-            startActivityForResult(signInIntent, 9001);
-        } else {
-            noInternet(this);
-            mGoogleApiClient.connect();
-        }
-    }
 
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        noInternet(this);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 9001) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if (result.isSuccess()) {
-                // Get account information
-                GoogleSignInAccount acct = result.getSignInAccount();
-                if (acct != null) {
-                    String personName = acct.getDisplayName();
-                    editor = preferences.edit();
-                    editor.putString("NAME_PREF", personName);
-                    editor.putBoolean("IS_INITIALIZED", true);
-                    editor.apply();
-                    Uri personPhoto = acct.getPhotoUrl();
-                    if (personPhoto != null) {
-                        new PictureDownloader(this).execute(personPhoto.toString());
-                    } else {
-                        new PictureDownloader(this).execute(getString(R.string.server_photo));
-                    }
-                } else {
-                    noInternet(this);
-                }
+            if (photo != null) {
+                new PictureDownloader(this).execute(photo);
             } else {
-                noInternet(this);
+                new PictureDownloader(this).execute(getString(R.string.server_photo));
             }
+        }
+
+        if (isTryingToConnectAchievement) {
+            isTryingToConnectAchievement = false;
+            startAchievement();
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.corbel.pierre.jb.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import android.widget.TableRow;
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.lib.AchievementHelper;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
+import com.corbel.pierre.jb.lib.GameHelper;
 import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.view.FloatingActionButton;
 
@@ -22,13 +24,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.corbel.pierre.jb.lib.Helper.noInternet;
 import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
 
-public class ProfileActivity extends Activity {
+public class ProfileActivity extends Activity
+        implements GameHelper.GameHelperListener {
 
+    public GameHelper mGameHelper;
     @BindView(R.id.profile_image_view)
     CircleImageView profileImageView;
-
     @BindView(R.id.profile_text_view)
     AutoResizeTextView profileTextView;
     @BindView(R.id.game_played_text_view)
@@ -45,7 +49,6 @@ public class ProfileActivity extends Activity {
     AutoResizeTextView bestScoreTextView;
     @BindView(R.id.stats_viewed_text_view)
     AutoResizeTextView statsViewedTextView;
-
     @BindView(R.id.profile_card_view)
     CardView profileCardView;
     @BindView(R.id.game_played_table_row)
@@ -62,10 +65,8 @@ public class ProfileActivity extends Activity {
     TableRow bestScoreTableRow;
     @BindView(R.id.stats_viewed_table_row)
     TableRow statsViewedTableRow;
-
     @BindView(R.id.fab)
     FloatingActionButton fab;
-
     private Animation profileCardViewAnimation;
     private Animation gamePlayedTableRowAnimation;
     private Animation gameFinishedTableRowAnimation;
@@ -75,7 +76,6 @@ public class ProfileActivity extends Activity {
     private Animation bestScoreTableRowAnimation;
     private Animation statsViewedTableRowAnimation;
     private Animation fabAnimation;
-
     private Handler handler = new Handler();
 
     @Override
@@ -86,6 +86,12 @@ public class ProfileActivity extends Activity {
         setStatusBarColor(this);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mGameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
+        mGameHelper.setup(this);
+        if (preferences.getBoolean("IS_GOOGLE_CONN", false)) {
+            mGameHelper.beginUserInitiatedSignIn();
+        }
+
         AchievementHelper.checkStatsAchievement(this);
 
         profileTextView.setText(preferences.getString("NAME_PREF", "Joueur"));
@@ -211,5 +217,32 @@ public class ProfileActivity extends Activity {
                 Helper.switchActivity(ProfileActivity.this, toActivity, R.anim.fake_anim, R.anim.fake_anim);
             }
         }, 1000);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGameHelper.onStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mGameHelper.onStop();
+    }
+
+    @Override
+    protected void onActivityResult(int request, int response, Intent data) {
+        super.onActivityResult(request, response, data);
+        mGameHelper.onActivityResult(request, response, data);
+    }
+
+    @Override
+    public void onSignInFailed() {
+    }
+
+    @Override
+    public void onSignInSucceeded() {
+        // NO-OP
     }
 }

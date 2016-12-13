@@ -18,8 +18,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.corbel.pierre.jb.R;
-import com.corbel.pierre.jb.app.Jaboog;
-import com.google.android.gms.games.Games;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -83,11 +81,6 @@ public class Helper {
                 TimeUnit.SECONDS.toSeconds(seconds) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(seconds))
         );
-    }
-
-    // Set view for games popup
-    public static void setViewForPopup(Activity activity) {
-        Games.setViewForPopups(Jaboog.getGoogleApiHelper().mGoogleApiClient, activity.getWindow().getDecorView().findViewById(android.R.id.content));
     }
 
     // Display no internet snackbar
