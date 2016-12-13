@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.downloader.PictureDownloader;
+import com.corbel.pierre.jb.lib.GameHelper;
 import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.view.FloatingActionButton;
 import com.google.android.gms.auth.api.Auth;
@@ -21,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +31,7 @@ import butterknife.OnClick;
 import static com.corbel.pierre.jb.lib.Helper.noInternet;
 import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
 
-public class LoginActivity extends Activity
-        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity extends Activity implements GameHelper.GameHelperListener {
 
     @BindView(R.id.edit_text)
     TextInputEditText editText;
@@ -41,7 +42,7 @@ public class LoginActivity extends Activity
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-    private GoogleApiClient mGoogleApiClient;
+    protected GameHelper mGameHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +54,8 @@ public class LoginActivity extends Activity
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
-        mGoogleApiClient.connect();
+        mGameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
+        mGameHelper.setup(this);
     }
 
 
@@ -79,59 +74,46 @@ public class LoginActivity extends Activity
 
     @OnClick(R.id.fab)
     public void loginWithGoogle() {
-        if (mGoogleApiClient.isConnected()) {
-            editor = preferences.edit();
-            editor.putBoolean("IS_GOOGLE_CONN", true);
-            editor.apply();
-            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-            startActivityForResult(signInIntent, 9001);
-        } else {
-            noInternet(this);
-            mGoogleApiClient.connect();
-        }
+        mGameHelper.beginUserInitiatedSignIn();
     }
 
     @Override
-    public void onConnected(@Nullable Bundle bundle) {
+    protected void onStart() {
+        super.onStart();
+        mGameHelper.onStart(this);
     }
 
     @Override
-    public void onConnectionSuspended(int i) {
-        mGoogleApiClient.connect();
+    protected void onStop() {
+        super.onStop();
+        mGameHelper.onStop();
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    protected void onActivityResult(int request, int response, Intent data) {
+        super.onActivityResult(request, response, data);
+        mGameHelper.onActivityResult(request, response, data);
+    }
+
+    @Override
+    public void onSignInFailed() {
         noInternet(this);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 9001) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if (result.isSuccess()) {
-                // Get account information
-                GoogleSignInAccount acct = result.getSignInAccount();
-                if (acct != null) {
-                    String personName = acct.getDisplayName();
-                    editor = preferences.edit();
-                    editor.putString("NAME_PREF", personName);
-                    editor.putBoolean("IS_INITIALIZED", true);
-                    editor.apply();
-                    Uri personPhoto = acct.getPhotoUrl();
-                    if (personPhoto != null) {
-                        new PictureDownloader(this).execute(personPhoto.toString());
-                    } else {
-                        new PictureDownloader(this).execute(getString(R.string.server_photo));
-                    }
-                    Helper.switchActivity(this, TutorialActivity.class, R.anim.fake_anim, R.anim.fake_anim);
-                } else {
-                    noInternet(this);
-                }
-            } else {
-                noInternet(this);
-            }
+    public void onSignInSucceeded() {
+        String name = Games.Players.getCurrentPlayer(mGameHelper.getApiClient()).getDisplayName();
+        Uri photo = Games.Players.getCurrentPlayer(mGameHelper.getApiClient()).getIconImageUri();
+
+        editor = preferences.edit();
+        editor.putString("NAME_PREF", name);
+        editor.putBoolean("IS_INITIALIZED", true);
+        editor.apply();
+
+        if (photo != null) {
+            new PictureDownloader(this).execute(photo.toString());
+        } else {
+            new PictureDownloader(this).execute(getString(R.string.server_photo));
         }
     }
 }
