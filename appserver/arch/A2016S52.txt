@@ -1,6 +1,6 @@
 ﻿Quelle est l’origine du personnage du Père Noël ?;Païenne ;Chrétienne ;Pepsi ;Coca-Cola;Païenne ;noel;https://fr.wikipedia.org/wiki/P%C3%A8re_No%C3%ABl
 Tino Rossi est le chanteur français qui a vendu le plus d’album dans le monde avec « Petit Papa Noël ».;Vrai;Faux;;;Vrai;noel;https://fr.wikipedia.org/wiki/Tino_Rossi#Recordman_fran.C3.A7ais_de_la_vente_de_disques
-Quelle est la bonne orthographe de ce mot ?;Noël   ;Nöel;;;Noël   ;noel;http://www.larousse.fr/dictionnaires/francais/no%C3%ABl/54760
+Quelle est la bonne orthographe de ce mot ?;Noël;Nöel;;;Noël;noel;http://www.larousse.fr/dictionnaires/francais/no%C3%ABl/54760
 D’où vient la tradition de consommer une bûche à la fin d’un repas de Noël ?;D’une tradition païenne ancestrale;De la religion chrétienne ;D'origine commerciale;Du lobby des bûcherons;D’une tradition païenne ancestrale;noel;https://fr.wikipedia.org/wiki/B%C3%BBche_de_No%C3%ABl
 Pourquoi Noël, célébrant la naissance de Jésus, est fêté le 25 décembre ?;Pour substituer à une fête Païenne ;Parce qu’il est né le 25 Décembre ;Car c’est la date de naissance du 1er Pape de l’histoire;Car cela correspond au solstice d’hiver;Pour substituer à une fête Païenne ;noel;http://www.la-croix.com/Religion/Actualite/Pourquoi-Noel-est-il-fete-le-25-decembre-_NG_-2010-12-26-560953
 Depuis quand s’offre-t-on des cadeaux en période de Noël ?;Depuis l’Antiquité;Depuis une période récente;;;Depuis l’Antiquité;noel;http://www.sciencesetavenir.fr/archeo-paleo/anthropologie/pourquoi-s-offre-t-on-des-cadeaux-a-noel_28224
