@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -60,7 +61,8 @@ public class Helper {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        //calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
         calendar.set(Calendar.HOUR_OF_DAY, 7);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -70,6 +72,7 @@ public class Helper {
             calendar.add(Calendar.WEEK_OF_YEAR, 1);
         }
 
+        Log.d("com.corbel.pierre.jb", "Badge Alarm set to : " + String.format("%1$tA %1$tb %1$td %1$tY at %1$tI:%1$tM %1$Tp", calendar));
         alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
     }
 
