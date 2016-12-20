@@ -39,7 +39,14 @@ public class PictureDownloader extends AsyncTask<String, Void, Bitmap> {
 
     public void onPostExecute(Bitmap result) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        result.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
+        if (result != null) {
+            result.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
+        } else {
+            InputStream is = activity.getResources().openRawResource(R.raw.photo);
+            Bitmap bitmap = BitmapFactory.decodeStream(is);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
+        }
+
         byte[] byteArray = byteArrayOutputStream.toByteArray();
 
         String personPicture = Base64.encodeToString(byteArray, Base64.DEFAULT);
