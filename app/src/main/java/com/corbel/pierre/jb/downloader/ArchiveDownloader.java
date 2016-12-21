@@ -12,6 +12,7 @@ import android.view.View;
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.activity.ArchiveActivity;
 import com.corbel.pierre.jb.activity.HomeActivity;
+import com.corbel.pierre.jb.lib.Helper;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -89,6 +90,7 @@ public class ArchiveDownloader extends AsyncTask<String, Void, Boolean> {
             SharedPreferences.Editor mEditor = mPreferences.edit();
             mEditor.putBoolean("IS_ARCHIVE_READY", true);
             mEditor.apply();
+            Helper.setBadge(activity, 0);
         }
     }
 
