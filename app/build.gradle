@@ -8,8 +8,8 @@ android {
         applicationId "com.corbel.pierre.jb"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 35
-        versionName "1.0.1.alpha"
+        versionCode 37
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
