@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "750736924665",
-    "project_id": "jaboog-24680914"
+    "firebase_url": "https://jaboog-24680914.firebaseio.com",
+    "project_id": "jaboog-24680914",
+    "storage_bucket": "jaboog-24680914.appspot.com"
   },
   "client": [
     {
@@ -12,6 +14,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "750736924665-6njmuavbube2at2epn6sste33t1bnub2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.corbel.pierre.jb",
+            "certificate_hash": "BD2252BA8EEB08B7586F9B890D79945DA2FE8425"
+          }
+        },
+        {
+          "client_id": "750736924665-9bv0t92l7di3r81sp31qspssut0vuv0k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.corbel.pierre.jb",
+            "certificate_hash": "454A34FB113692B00FFB60C7D9C14AEC75D0912D"
+          }
+        },
         {
           "client_id": "750736924665-r305d6e4sf3o0m6p2ao3penv14vcktdd.apps.googleusercontent.com",
           "client_type": 1,
@@ -25,8 +43,16 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.corbel.pierre.jb",
-            "certificate_hash": "DD283027EC7D30BE1AA468223B1FC5375F0AF299"
+            "certificate_hash": "54EDE069BA286FBA87675E18AA34009021472B1C"
           }
+        },
+        {
+          "client_id": "750736924665-7iu8rg84ujfvoeodvffk6fdosr0dohmf.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "750736924665-8qpb7ko2epfkbuhihdr49tk5j5m84831.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -42,11 +68,16 @@
           }
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750736924665-7iu8rg84ujfvoeodvffk6fdosr0dohmf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
