@@ -19,7 +19,6 @@ import com.corbel.pierre.jb.lib.LeaderBoardHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.corbel.pierre.jb.lib.Helper.noInternet;
 import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
 import static com.corbel.pierre.jb.lib.Helper.switchActivity;
 

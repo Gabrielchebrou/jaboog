@@ -52,7 +52,7 @@ import java.util.ArrayList;
  * shared state, which consists of single string.  You can also select
  * automatch players; all known players play before automatch slots
  * are filled.
- *
+ * <p>
  * INSTRUCTIONS: To run this sample, please set up
  * a project in the Developer Console. Then, place your app ID on
  * res/values/ids.xml. Also, change the package name to the package name you
@@ -68,43 +68,32 @@ public class SkeletonActivity extends Activity
         View.OnClickListener {
 
     public static final String TAG = "SkeletonActivity";
-
-    // Client used to interact with Google APIs
-    private GoogleApiClient mGoogleApiClient;
-
-    // Are we currently resolving a connection failure?
-    private boolean mResolvingConnectionFailure = false;
-
-    // Has the user clicked the sign-in button?
-    private boolean mSignInClicked = false;
-
-    // Automatically start the sign-in flow when the Activity starts
-    private boolean mAutoStartSignInFlow = true;
-
-    // Current turn-based match
-    private TurnBasedMatch mTurnBasedMatch;
-
+    final static int RC_SELECT_PLAYERS = 10000;
+    final static int RC_LOOK_AT_MATCHES = 10001;
+    // For our intents
+    private static final int RC_SIGN_IN = 9001;
     // Local convenience pointers
     public TextView mDataView;
     public TextView mTurnTextView;
-
-    private AlertDialog mAlertDialog;
-
-    // For our intents
-    private static final int RC_SIGN_IN = 9001;
-    final static int RC_SELECT_PLAYERS = 10000;
-    final static int RC_LOOK_AT_MATCHES = 10001;
-
     // Should I be showing the turn API?
     public boolean isDoingTurn = false;
-
     // This is the current match we're in; null if not loaded
     public TurnBasedMatch mMatch;
-
     // This is the current match data after being unpersisted.
     // Do not retain references to match data once you have
     // taken an action on the match, such as takeTurn()
     public SkeletonTurn mTurnData;
+    // Client used to interact with Google APIs
+    private GoogleApiClient mGoogleApiClient;
+    // Are we currently resolving a connection failure?
+    private boolean mResolvingConnectionFailure = false;
+    // Has the user clicked the sign-in button?
+    private boolean mSignInClicked = false;
+    // Automatically start the sign-in flow when the Activity starts
+    private boolean mAutoStartSignInFlow = true;
+    // Current turn-based match
+    private TurnBasedMatch mTurnBasedMatch;
+    private AlertDialog mAlertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

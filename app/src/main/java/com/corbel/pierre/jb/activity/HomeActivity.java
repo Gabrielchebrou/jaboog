@@ -14,7 +14,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +48,7 @@ import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
 public class HomeActivity extends Activity
         implements GameHelper.GameHelperListener, NavigationView.OnNavigationItemSelectedListener {
 
+    public GameHelper mGameHelper;
     @BindView(R.id.play_button)
     BeautifulButtonWithImage playButton;
     @BindView(R.id.achievement_button)
@@ -79,7 +79,6 @@ public class HomeActivity extends Activity
     private Handler handler = new Handler();
     private MediaPlayer mediaPlayer;
     private DbHelper db;
-    public GameHelper mGameHelper;
     private boolean isTryingToConnectAchievement = false;
     private boolean isTryingToConnectLeaderBoard = false;
 
