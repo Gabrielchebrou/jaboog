@@ -90,7 +90,6 @@ public class HomeActivity extends Activity
         ButterKnife.bind(this);
         prepareNavigationDrawer();
         mediaPlayer = MediaPlayerHelper.initializeMusicPlayer(this, R.raw.elevator);
-        Helper.setAlarm(this);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 

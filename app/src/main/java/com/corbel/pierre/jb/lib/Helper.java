@@ -53,29 +53,6 @@ public class Helper {
         ShortcutBadger.applyCount(activity.getApplicationContext(), count);
     }
 
-    // Set Alarm (crontab-like)
-    public static void setAlarm(Activity activity) {
-        AlarmManager alarmManager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
-        Intent alarmIntent = new Intent(activity, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(activity, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        //calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-        calendar.set(Calendar.HOUR_OF_DAY, 7);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
-            calendar.add(Calendar.WEEK_OF_YEAR, 1);
-        }
-
-        Log.d("com.corbel.pierre.jb", "Badge Alarm set to : " + String.format("%1$tA %1$tb %1$td %1$tY at %1$tI:%1$tM %1$Tp", calendar));
-        alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, pendingIntent);
-    }
-
     // Convert second to human readable format
     public static String convertTime(int seconds) {
         seconds /= 1000;
