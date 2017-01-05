@@ -1,6 +1,7 @@
 package com.corbel.pierre.jb.app;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
@@ -34,6 +35,16 @@ public class Jaboog extends MultiDexApplication {
         AnalyticsTrackers.initialize(this);
         AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
         MobileAds.initialize(getApplicationContext(), getString(R.string.ad_app_id));
+
+        // Disable Analytics for alpha
+        try {
+            String version = String.valueOf(getPackageManager().getPackageInfo(getString(R.string.package_name), 0).versionName);
+            if (version.contains("alpha")) {
+                GoogleAnalytics.getInstance(this).setDryRun(true);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            // NO-OP
+        }
     }
 
     public synchronized Tracker getGoogleAnalyticsTracker() {
