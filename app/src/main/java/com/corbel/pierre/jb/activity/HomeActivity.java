@@ -197,8 +197,7 @@ public class HomeActivity extends Activity
 
     @OnClick(R.id.fab)
     public void buy() {
-        animateOutTo(SkeletonActivity.class);
-        //animateOutTo(IAPActivity.class);
+        animateOutTo(IAPActivity.class);
     }
 
     public void prepareNavigationDrawer() {
