@@ -23,4 +23,15 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="Mise à jour">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="SHOULD_FIREBASE_NOTIF"
+            android:summaryOff="Notfication désactivée"
+            android:summaryOn="Notification activée"
+            android:title="Etre notifié d'une nouvelle série" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
