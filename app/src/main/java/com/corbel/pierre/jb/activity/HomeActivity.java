@@ -56,7 +56,7 @@ public class HomeActivity extends Activity
     @BindView(R.id.leaderboard_button)
     BeautifulButtonWithImage leaderboardButton;
     @BindView(R.id.current_button)
-    BeautifulButtonWithImage currentButton;
+    public BeautifulButtonWithImage currentButton;
     @BindView(R.id.fab)
     FloatingActionButton fab;
     @BindView(R.id.toolbar)

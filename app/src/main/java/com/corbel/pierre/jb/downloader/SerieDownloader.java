@@ -7,10 +7,12 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.activity.ArchiveActivity;
 import com.corbel.pierre.jb.activity.CountDownActivity;
+import com.corbel.pierre.jb.activity.HomeActivity;
 import com.corbel.pierre.jb.lib.DbHelper;
 
 import java.io.BufferedReader;
@@ -102,10 +104,13 @@ public class SerieDownloader extends AsyncTask<String, Void, Boolean> {
 
             DbHelper db = DbHelper.getInstance(activity);
             db.onUpgrade(db.getWritableDatabase(), 0, 1);
-            ShortcutBadger.removeCount(activity);
+
+            Log.d("shouldGoToQuiz", String.valueOf(shouldGoToQuiz));
 
             if (shouldGoToQuiz) {
                 ((ArchiveActivity) activity).animateOutTo(CountDownActivity.class);
+            } else {
+                ((HomeActivity) activity).currentButton.setText(mPreferences.getString("SERIE_NAME_PREF", "Séries disponibles"));
             }
         }
     }
