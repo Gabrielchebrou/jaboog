@@ -25,6 +25,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         Log.d(TAG, "From: " + remoteMessage.getFrom());
+        Log.d(TAG, "Notification Message Title: " + remoteMessage.getNotification().getTitle());
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
