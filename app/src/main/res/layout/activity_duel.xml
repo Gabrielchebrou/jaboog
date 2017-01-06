@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/material_color_teal_500" />
+
+    <com.corbel.pierre.jb.lib.AutoResizeTextView
+        android:id="@+id/header_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:lines="1"
+        android:text="@string/app_name"
+        android:textColor="@color/material_color_white"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/material_color_teal_500" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/footer"
+        android:layout_below="@id/header"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical">
+
+        <com.corbel.pierre.jb.view.BeautifulButtonWithImage
+            android:id="@+id/start_match_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            app:pco_label="Duel"
+            app:pco_src="@drawable/sword" />
+
+        <com.corbel.pierre.jb.view.BeautifulButtonWithImage
+            android:id="@+id/check_match_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            app:pco_label="Duels en cours"
+            app:pco_src="@drawable/timer_sand" />
+
+    </LinearLayout>
+
+    <com.corbel.pierre.jb.view.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/footer"
+        android:layout_alignEnd="@id/footer"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="8dp"
+        app:srcCompat="@drawable/home"
+        app:fab_colorNormal="@color/material_color_red_accent_700" />
+
+</RelativeLayout>

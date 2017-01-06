@@ -47,6 +47,7 @@ dependencies {
         transitive = true
     }
     compile 'com.google.firebase:firebase-messaging:10.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
 }
 
 apply plugin: 'com.google.gms.google-services'

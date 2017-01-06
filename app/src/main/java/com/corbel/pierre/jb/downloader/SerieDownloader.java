@@ -105,8 +105,6 @@ public class SerieDownloader extends AsyncTask<String, Void, Boolean> {
             DbHelper db = DbHelper.getInstance(activity);
             db.onUpgrade(db.getWritableDatabase(), 0, 1);
 
-            Log.d("shouldGoToQuiz", String.valueOf(shouldGoToQuiz));
-
             if (shouldGoToQuiz) {
                 ((ArchiveActivity) activity).animateOutTo(CountDownActivity.class);
             } else {

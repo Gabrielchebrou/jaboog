@@ -79,8 +79,8 @@
         <activity android:name="com.corbel.pierre.jb.activity.FinishActivity"
             android:screenOrientation="portrait"/>
 
-        <!-- Skeleton Activity -->
-        <activity android:name="com.corbel.pierre.jb.activity.SkeletonActivity"
+        <!-- Duel Activity -->
+        <activity android:name="com.corbel.pierre.jb.activity.DuelActivity"
             android:screenOrientation="portrait"/>
 
         <!-- Google Play Games -->

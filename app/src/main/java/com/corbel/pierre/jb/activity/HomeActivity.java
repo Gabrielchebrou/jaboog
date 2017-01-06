@@ -32,6 +32,7 @@ import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.lib.LeaderBoardHelper;
 import com.corbel.pierre.jb.lib.MediaPlayerHelper;
 import com.corbel.pierre.jb.lib.Serie;
+import com.corbel.pierre.jb.lib.SkeletonTurn;
 import com.corbel.pierre.jb.view.BeautifulButtonWithImage;
 import com.corbel.pierre.jb.view.FloatingActionButton;
 import com.google.android.gms.ads.AdView;
@@ -158,7 +159,8 @@ public class HomeActivity extends Activity
     @OnClick(R.id.play_button)
     public void play() {
         if (preferences.getBoolean("IS_DB_READY", false) && preferences.getInt("CURRENT_SERIE_ID_PREF", 0) != 0) {
-            animateOutTo(CountDownActivity.class);
+            //animateOutTo(CountDownActivity.class);
+            animateOutTo(DuelActivity.class);
         } else {
             animateOutTo(ArchiveActivity.class);
         }
