@@ -3,12 +3,12 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "24.0.3"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.corbel.pierre.jb"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 38
+        versionCode 39
         versionName "1.0.2.alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
