@@ -1,3 +1,4 @@
+15;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2017S02.txt;Soldes & Golden Globes
 14;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2017S01.txt;Bonjour 2017
 13;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2016S53.txt;Au revoir 2016
 12;https://raw.githubusercontent.com/Corbichon/jaboog/master/appserver/arch/A2016S52.txt;Joyeux Noël
