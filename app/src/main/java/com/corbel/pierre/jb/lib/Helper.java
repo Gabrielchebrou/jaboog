@@ -20,8 +20,6 @@ import com.corbel.pierre.jb.R;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import me.leolin.shortcutbadger.ShortcutBadger;
-
 public class Helper {
 
     // Set status bar color
@@ -41,11 +39,6 @@ public class Helper {
         fromActivity.startActivity(intent);
         fromActivity.finish();
         fromActivity.overridePendingTransition(appearingActivity, exitingActivity);
-    }
-
-    // Set badge counter on launcher
-    public static void setBadge(Activity activity, int count) {
-        ShortcutBadger.applyCount(activity.getApplicationContext(), count);
     }
 
     // Convert second to human readable format

@@ -25,6 +25,8 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
+
 import static com.corbel.pierre.jb.lib.Helper.noInternet;
 
 public class ArchiveDownloader extends AsyncTask<String, Void, Boolean> {
@@ -158,6 +160,8 @@ public class ArchiveDownloader extends AsyncTask<String, Void, Boolean> {
         editor.putString("SERIE_NAME_PREF", lastSerie.getName());
         editor.putInt("CURRENT_SERIE_ID_PREF", lastSerie.getId());
         editor.apply();
+
+        ShortcutBadger.removeCount(activity.getApplicationContext());
     }
 
     private class SnackListener implements View.OnClickListener {

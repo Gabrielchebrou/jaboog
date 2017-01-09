@@ -16,6 +16,8 @@ import com.corbel.pierre.jb.activity.HomeActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
@@ -33,6 +35,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (preferences.getBoolean("SHOULD_FIREBASE_NOTIF", true)) {
             sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
         }
+
+        Log.d(TAG, "Setting badge notification");
+        ShortcutBadger.applyCount(this, 1);
     }
 
     private void sendNotification(String messageTitle, String messageBody) {

@@ -158,8 +158,7 @@ public class HomeActivity extends Activity
     @OnClick(R.id.play_button)
     public void play() {
         if (preferences.getBoolean("IS_DB_READY", false) && preferences.getInt("CURRENT_SERIE_ID_PREF", 0) != 0) {
-            //animateOutTo(CountDownActivity.class);
-            animateOutTo(DuelActivity.class);
+            animateOutTo(CountDownActivity.class);
         } else {
             animateOutTo(ArchiveActivity.class);
         }
