@@ -53,6 +53,9 @@ public class CountDownActivity extends Activity
             mGameHelper.beginUserInitiatedSignIn();
         }
 
+        AchievementHelper.checkPushPlayedAchievement(this);
+        LeaderBoardHelper.incrementLocalPushedPlayed(this);
+
         final Animation animation3 = AnimationUtils.loadAnimation(threeTextView.getContext(), R.anim.slide_out);
         final Animation animation2 = AnimationUtils.loadAnimation(twoTextView.getContext(), R.anim.slide_out);
         final Animation animation1 = AnimationUtils.loadAnimation(oneTextView.getContext(), R.anim.slide_out);
@@ -91,8 +94,6 @@ public class CountDownActivity extends Activity
         };
 
         handler.postDelayed(runnable, 2250);
-        AchievementHelper.checkPushPlayedAchievement(this);
-        LeaderBoardHelper.incrementPushedPlayed(this);
     }
 
     @Override
@@ -126,6 +127,6 @@ public class CountDownActivity extends Activity
 
     @Override
     public void onSignInSucceeded() {
-        // NO-OP
+        LeaderBoardHelper.incrementGamesPushedPlayed(this);
     }
 }

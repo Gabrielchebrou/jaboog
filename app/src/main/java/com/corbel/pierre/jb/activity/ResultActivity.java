@@ -91,7 +91,7 @@ public class ResultActivity extends Activity
             mGameHelper.beginUserInitiatedSignIn();
         }
 
-        LeaderBoardHelper.incrementBestScore(this, score);
+        LeaderBoardHelper.updateLocalBestScore(this, score);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int id = preferences.getInt("CURRENT_SERIE_ID_PREF", 0);
@@ -263,6 +263,9 @@ public class ResultActivity extends Activity
 
     @Override
     public void onSignInSucceeded() {
+
+        LeaderBoardHelper.updateGamesBestScore(this);
+
         if (!preferences.getBoolean("IS_GOOGLE_CONN", false)) {
             String name = Games.Players.getCurrentPlayer(mGameHelper.getApiClient()).getDisplayName();
             String photo = Games.Players.getCurrentPlayer(mGameHelper.getApiClient()).getIconImageUrl();

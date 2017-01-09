@@ -255,7 +255,6 @@ public class QuizActivity extends Activity
             startQuestion(++questionId);
         } else {
             AchievementHelper.checkFastAchievement(this, countDown.timePassed());
-            LeaderBoardHelper.incrementFinishedGames(this);
             animateOutTo(FinishActivity.class);
         }
     }
