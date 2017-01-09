@@ -29,6 +29,7 @@ public class AchievementHelper {
         activity.startActivityForResult(Games.Achievements.getAchievementsIntent(activity.mGameHelper.getApiClient()), 9002);
     }
 
+    // Not local and games because called at the end of the activity
     public static void checkConsecutiveAchievement(QuizActivity activity, int consecutive) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         if (preferences.getBoolean("IS_GOOGLE_CONN", true)) {
@@ -59,6 +60,7 @@ public class AchievementHelper {
         }
     }
 
+    // Not local and games because called at the end of the activity
     public static void checkFastAchievement(QuizActivity activity, long timePassed) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         if (preferences.getBoolean("IS_GOOGLE_CONN", true)) {
@@ -82,6 +84,7 @@ public class AchievementHelper {
         }
     }
 
+    // Not local and games because called at the end of the activity
     public static void checkQuestionsAchievement(QuizActivity activity, int questionsAnswered) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         if (preferences.getBoolean("IS_GOOGLE_CONN", true)) {
@@ -100,6 +103,7 @@ public class AchievementHelper {
         editor.apply();
     }
 
+    // Not local and games because called at the end of the activity
     public static void checkJokerAchievement(QuizActivity activity) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         if (preferences.getBoolean("IS_GOOGLE_CONN", true)) {
@@ -118,32 +122,25 @@ public class AchievementHelper {
     }
 
     public static void checkPushPlayedAchievement(CountDownActivity activity) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        if (preferences.getBoolean("IS_GOOGLE_CONN", true)) {
-            if (activity.mGameHelper.getApiClient().isConnected()) {
-                Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_influ), 1);
-                Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_accoutum), 1);
-                Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_dpendant), 1);
-                Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_toxicomane), 1);
-                Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_accroc), 1);
-            }
-        }
+        Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_influ), 1);
+        Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_accoutum), 1);
+        Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_dpendant), 1);
+        Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_toxicomane), 1);
+        Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_accroc), 1);
     }
 
-    public static void checkStatsAchievement(ProfileActivity activity) {
+    public static void incrementLocalStatsAchievement(ProfileActivity activity) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        if (preferences.getBoolean("IS_GOOGLE_CONN", true)) {
-            if (activity.mGameHelper.getApiClient().isConnected()) {
-                Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_data_analyst), 1);
-                Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_data_architect), 1);
-                Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_data_scientist), 1);
-                Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_data_engineer), 1);
-            }
-        }
-
         SharedPreferences.Editor editor = preferences.edit();
         int viewedStats = preferences.getInt("VIEWED_STATS", 0);
         editor.putInt("VIEWED_STATS", ++viewedStats);
         editor.apply();
+    }
+
+    public static void incrementGamesStatsAchievement(ProfileActivity activity) {
+        Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_data_analyst), 1);
+        Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_data_architect), 1);
+        Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_data_scientist), 1);
+        Games.Achievements.increment(activity.mGameHelper.getApiClient(), activity.getResources().getString(R.string.achievement_data_engineer), 1);
     }
 }

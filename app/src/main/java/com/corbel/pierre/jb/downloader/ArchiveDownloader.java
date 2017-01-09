@@ -14,7 +14,6 @@ import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.activity.ArchiveActivity;
 import com.corbel.pierre.jb.activity.HomeActivity;
 import com.corbel.pierre.jb.lib.DbHelper;
-import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.lib.Serie;
 
 import java.io.BufferedReader;
@@ -105,13 +104,6 @@ public class ArchiveDownloader extends AsyncTask<String, Void, Boolean> {
         mProgressDialog.dismiss();
     }
 
-    private class SnackListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            ((HomeActivity) activity).animateOutTo(ArchiveActivity.class);
-        }
-    }
-
     private String readFromRaw(Context ctx) throws Exception {
 
         Writer writer = new StringWriter();
@@ -166,5 +158,12 @@ public class ArchiveDownloader extends AsyncTask<String, Void, Boolean> {
         editor.putString("SERIE_NAME_PREF", lastSerie.getName());
         editor.putInt("CURRENT_SERIE_ID_PREF", lastSerie.getId());
         editor.apply();
+    }
+
+    private class SnackListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            ((HomeActivity) activity).animateOutTo(ArchiveActivity.class);
+        }
     }
 }

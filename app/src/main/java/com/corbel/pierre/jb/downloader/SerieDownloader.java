@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.activity.ArchiveActivity;
@@ -20,8 +19,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import me.leolin.shortcutbadger.ShortcutBadger;
 
 import static com.corbel.pierre.jb.lib.Helper.noInternet;
 

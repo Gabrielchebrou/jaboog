@@ -53,7 +53,6 @@ public class CountDownActivity extends Activity
             mGameHelper.beginUserInitiatedSignIn();
         }
 
-        AchievementHelper.checkPushPlayedAchievement(this);
         LeaderBoardHelper.incrementLocalPushedPlayed(this);
 
         final Animation animation3 = AnimationUtils.loadAnimation(threeTextView.getContext(), R.anim.slide_out);
@@ -128,5 +127,6 @@ public class CountDownActivity extends Activity
     @Override
     public void onSignInSucceeded() {
         LeaderBoardHelper.incrementGamesPushedPlayed(this);
+        AchievementHelper.checkPushPlayedAchievement(this);
     }
 }

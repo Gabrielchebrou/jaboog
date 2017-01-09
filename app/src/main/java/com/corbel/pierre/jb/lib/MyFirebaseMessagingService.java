@@ -12,7 +12,6 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.corbel.pierre.jb.R;
-import com.corbel.pierre.jb.activity.ArchiveActivity;
 import com.corbel.pierre.jb.activity.HomeActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

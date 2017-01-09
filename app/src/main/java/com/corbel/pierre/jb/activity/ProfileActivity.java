@@ -91,7 +91,7 @@ public class ProfileActivity extends Activity
             mGameHelper.beginUserInitiatedSignIn();
         }
 
-        AchievementHelper.checkStatsAchievement(this);
+        AchievementHelper.incrementLocalStatsAchievement(this);
 
         profileTextView.setText(preferences.getString("NAME_PREF", "Joueur"));
         profileImageView.setImageBitmap(Helper.getUserPicture(this, "black"));
@@ -242,6 +242,6 @@ public class ProfileActivity extends Activity
 
     @Override
     public void onSignInSucceeded() {
-        // NO-OP
+        AchievementHelper.incrementGamesStatsAchievement(this);
     }
 }

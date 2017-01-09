@@ -32,7 +32,6 @@ import com.corbel.pierre.jb.lib.Helper;
 import com.corbel.pierre.jb.lib.LeaderBoardHelper;
 import com.corbel.pierre.jb.lib.MediaPlayerHelper;
 import com.corbel.pierre.jb.lib.Serie;
-import com.corbel.pierre.jb.lib.SkeletonTurn;
 import com.corbel.pierre.jb.view.BeautifulButtonWithImage;
 import com.corbel.pierre.jb.view.FloatingActionButton;
 import com.google.android.gms.ads.AdView;
@@ -50,14 +49,14 @@ public class HomeActivity extends Activity
         implements GameHelper.GameHelperListener, NavigationView.OnNavigationItemSelectedListener {
 
     public GameHelper mGameHelper;
+    @BindView(R.id.current_button)
+    public BeautifulButtonWithImage currentButton;
     @BindView(R.id.play_button)
     BeautifulButtonWithImage playButton;
     @BindView(R.id.achievement_button)
     BeautifulButtonWithImage achievementButton;
     @BindView(R.id.leaderboard_button)
     BeautifulButtonWithImage leaderboardButton;
-    @BindView(R.id.current_button)
-    public BeautifulButtonWithImage currentButton;
     @BindView(R.id.fab)
     FloatingActionButton fab;
     @BindView(R.id.toolbar)

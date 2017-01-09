@@ -1,36 +1,22 @@
 package com.corbel.pierre.jb.activity;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import com.corbel.pierre.jb.R;
-import com.corbel.pierre.jb.downloader.PictureDownloader;
-import com.corbel.pierre.jb.lib.AchievementHelper;
-import com.corbel.pierre.jb.lib.AutoResizeTextView;
-import com.corbel.pierre.jb.lib.DbHelper;
 import com.corbel.pierre.jb.lib.DuelTurn;
 import com.corbel.pierre.jb.lib.GameHelper;
 import com.corbel.pierre.jb.lib.Helper;
-import com.corbel.pierre.jb.lib.LeaderBoardHelper;
-import com.corbel.pierre.jb.lib.Question;
-import com.corbel.pierre.jb.lib.Serie;
-import com.corbel.pierre.jb.lib.SkeletonTurn;
 import com.corbel.pierre.jb.view.BeautifulButtonWithImage;
 import com.corbel.pierre.jb.view.FloatingActionButton;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesStatusCodes;
@@ -46,39 +32,30 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.corbel.pierre.jb.lib.Helper.noInternet;
 import static com.corbel.pierre.jb.lib.Helper.setStatusBarColor;
 
 public class DuelActivity extends Activity
         implements GameHelper.GameHelperListener {
 
+    final static int RC_SELECT_PLAYERS = 10000;
+    final static int RC_LOOK_AT_MATCHES = 10001;
     public GameHelper mGameHelper;
-
+    public TurnBasedMatch mMatch;
+    public DuelTurn mTurnData;
     @BindView(R.id.check_match_button)
     BeautifulButtonWithImage checkButton;
     @BindView(R.id.start_match_button)
     BeautifulButtonWithImage startButton;
     @BindView(R.id.fab)
     FloatingActionButton fab;
-    
     private Animation checkButtonAnimation;
     private Animation startButtonAnimation;
     private Animation fabAnimation;
-
     private SharedPreferences preferences;
-
     private Handler handler = new Handler();
-
-    final static int RC_SELECT_PLAYERS = 10000;
-    final static int RC_LOOK_AT_MATCHES = 10001;
-
     private boolean isTryingToStartMatch = false;
     private boolean isTryingToCheckMatch = false;
-
     private String TAG = "DuelActivity";
-
-    public TurnBasedMatch mMatch;
-    public DuelTurn mTurnData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
