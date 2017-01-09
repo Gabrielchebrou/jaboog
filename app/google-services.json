@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "750736924665-iqbfu663qs5eia241ikjf7f29jb3cea8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.corbel.pierre.jb",
+            "certificate_hash": "AC82BC4E1C5CC9A72A51C3D4602CBFFF04D18ED6"
+          }
+        },
+        {
           "client_id": "750736924665-6njmuavbube2at2epn6sste33t1bnub2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

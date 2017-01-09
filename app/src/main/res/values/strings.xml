@@ -52,11 +52,14 @@
 
     <!-- Shortcut -->
     <string name="shortcut_home_short_label">Home</string>
-    <string name="shortcut_home_long_label">Going to Home View</string>
-    <string name="shortcut_home_disabled_label">Not going to Home View</string>
+    <string name="shortcut_home_long_label">Home</string>
+    <string name="shortcut_home_disabled_label"></string>
     <string name="shortcut_quiz_short_label">Quiz</string>
-    <string name="shortcut_quiz_long_label">Going to Quiz View</string>
-    <string name="shortcut_quiz_disabled_label">Not going to Quiz View</string>
+    <string name="shortcut_quiz_long_label">Quiz</string>
+    <string name="shortcut_quiz_disabled_label"></string>
+    <string name="shortcut_archive_short_label">Séries</string>
+    <string name="shortcut_archive_long_label">Séries</string>
+    <string name="shortcut_archive_disabled_label"></string>
 
     <!-- Misc -->
     <string name="update_success">Questions mise à jour avec succès</string>
