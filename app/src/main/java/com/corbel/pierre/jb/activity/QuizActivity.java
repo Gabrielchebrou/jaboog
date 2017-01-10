@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.corbel.pierre.jb.R;
+import com.corbel.pierre.jb.app.Jaboog;
 import com.corbel.pierre.jb.lib.AchievementHelper;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.CountDownTimerWithPause;
@@ -392,11 +393,13 @@ public class QuizActivity extends Activity
                         editor.putInt("JOKER_IN_STOCK", --jokerInStock);
                         editor.apply();
                         countDown.resume();
+                        Jaboog.getInstance().trackEvent("Jokers", "Use", "Click OK from Quiz when proposed");
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Jaboog.getInstance().trackEvent("Jokers", "Use", "Click NO from Quiz when proposed");
                         animateOutTo(ResultActivity.class);
                     }
                 })
