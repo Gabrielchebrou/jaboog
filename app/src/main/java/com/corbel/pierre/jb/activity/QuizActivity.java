@@ -280,7 +280,7 @@ public class QuizActivity extends Activity
             AchievementHelper.checkJokerAchievement(this);
             LeaderBoardHelper.incrementUsedJokers(this);
         } else {
-            int jokerInStock = preferences.getInt("JOKER_IN_STOCK", 0);
+            int jokerInStock = preferences.getInt("JOKER_IN_STOCK", 3);
             if (jokerInStock > 0 && hasNotConsumedJoker && questionId >= 10) {
                 createJokerDialog(jokerInStock);
                 button.setVisibility(View.INVISIBLE);

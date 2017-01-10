@@ -43,6 +43,12 @@ public class LoginActivity extends Activity implements GameHelper.GameHelperList
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        // Set 3 Jokers on first launch
+        int jokerInStock = preferences.getInt("JOKER_IN_STOCK", 3);
+        editor = preferences.edit();
+        editor.putInt("JOKER_IN_STOCK", jokerInStock);
+        editor.apply();
+
         mGameHelper = new GameHelper(this, GameHelper.CLIENT_GAMES);
         mGameHelper.setup(this);
     }
