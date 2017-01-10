@@ -226,6 +226,87 @@ public class QuizActivity extends Activity
         }
     }
 
+    @OnClick(R.id.fab)
+    public void clickOnJoker() {
+        int jokerInStock = preferences.getInt("JOKER_IN_STOCK", 3);
+
+        if (jokerInStock > 0 && joker == 0) {
+            countDown.pause();
+            new MaterialDialog.Builder(this)
+                    .iconRes(R.mipmap.ic_launcher)
+                    .limitIconToDefaultSize() // limits the displayed icon size to 48dp
+                    .title(R.string.quiz_joker_load)
+                    .content(getString(R.string.quiz_jokers_left, jokerInStock))
+                    .positiveText("Oui")
+                    .negativeText("Non")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            int jokerInStock = preferences.getInt("JOKER_IN_STOCK", 0);
+                            editor.putInt("JOKER_IN_STOCK", --jokerInStock);
+                            editor.apply();
+                            fab.setProgress(consecutiveGoodAnswer * 25, true);
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    fab.setIndeterminate(true);
+                                    fab.setImageResource(R.drawable.heart);
+                                }
+                            }, 500);
+                            joker = 1;
+                            consecutiveGoodAnswer = 4;
+                            countDown.resume();
+                            Jaboog.getInstance().trackEvent("Jokers", "Use", "Click OK from Quiz when clicked on Heart");
+                        }
+                    })
+                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            Jaboog.getInstance().trackEvent("Jokers", "Use", "Click NO from Quiz when clicked on Heart");
+                            animateOutTo(ResultActivity.class);
+                            countDown.resume();
+                        }
+                    })
+                    .canceledOnTouchOutside(false)
+                    .show();
+        }
+
+        if (jokerInStock > 0 && joker == 1) {
+            countDown.pause();
+            new MaterialDialog.Builder(this)
+                    .iconRes(R.mipmap.ic_launcher)
+                    .limitIconToDefaultSize() // limits the displayed icon size to 48dp
+                    .content(R.string.quiz_joker_already_loaded)
+                    .positiveText("OK")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            countDown.resume();
+                        }
+                    })
+                    .canceledOnTouchOutside(false)
+                    .show();
+        }
+
+        if (jokerInStock == 0) {
+            countDown.pause();
+            new MaterialDialog.Builder(this)
+                    .iconRes(R.mipmap.ic_launcher)
+                    .limitIconToDefaultSize() // limits the displayed icon size to 48dp
+                    .content(R.string.quiz_no_joker_left)
+                    .positiveText("OK")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            countDown.resume();
+                        }
+                    })
+                    .canceledOnTouchOutside(false)
+                    .show();
+        }
+    }
+
     private void onWin() {
         consecutiveGoodAnswer++;
         AchievementHelper.checkConsecutiveAchievement(this, consecutiveGoodAnswer);

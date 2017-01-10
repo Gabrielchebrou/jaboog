@@ -40,7 +40,7 @@ public class Jaboog extends MultiDexApplication {
         try {
             String version = String.valueOf(getPackageManager().getPackageInfo(getString(R.string.package_name), 0).versionName);
             if (version.contains("alpha")) {
-                GoogleAnalytics.getInstance(this).setDryRun(true);
+                //GoogleAnalytics.getInstance(this).setDryRun(true);
             }
         } catch (PackageManager.NameNotFoundException e) {
             // NO-OP

@@ -85,6 +85,9 @@
     <string name="quiz_simple_question_id">%1$d/30</string>
     <string name="quiz_jokers_left">%1$d Jokers disponibles</string>
     <string name="quiz_continue">Continuer ?</string>
+    <string name="quiz_joker_load">Charger un joker?</string>
+    <string name="quiz_joker_already_loaded">Le joker est déjà chargé au maximum!</string>
+    <string name="quiz_no_joker_left">Il ne vous reste plus de jokers...</string>
 
     <!-- Tuto -->
     <string name="tuto_question">Saurez-vous répondre à 30 questions d\'actualité en moins de 4 minutes ?</string>

@@ -87,7 +87,6 @@
         android:layout_alignEnd="@id/footer"
         android:layout_marginBottom="28dp"
         android:layout_marginEnd="8dp"
-        android:clickable="false"
         app:srcCompat="@drawable/heart_broken"
         app:fab_colorNormal="@color/material_color_red_accent_700"
         app:fab_progress="50"
