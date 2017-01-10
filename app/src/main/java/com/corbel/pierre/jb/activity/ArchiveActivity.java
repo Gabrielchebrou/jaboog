@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.corbel.pierre.jb.R;
+import com.corbel.pierre.jb.app.Jaboog;
 import com.corbel.pierre.jb.downloader.SerieDownloader;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
 import com.corbel.pierre.jb.lib.DbHelper;
@@ -172,12 +173,14 @@ public class ArchiveActivity extends Activity {
                             .onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    Jaboog.getInstance().trackEvent("In-App Purchase", "Buy Premium", "Click OK from Archive when proposed");
                                     animateOutTo(IAPActivity.class);
                                 }
                             })
                             .onNegative(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    Jaboog.getInstance().trackEvent("In-App Purchase", "Buy Premium", "Click NO from Archive when proposed");
                                 }
                             })
                             .canceledOnTouchOutside(false)
