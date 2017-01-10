@@ -72,7 +72,6 @@ public class QuizActivity extends Activity
     private int questionId = 0;
     private int consecutiveGoodAnswer = 0;
     private int joker = 0;
-    private boolean hasNotConsumedJoker = true;
     private Animation questionCardViewAnimation;
     private Animation jokerAnimation;
     private Animation bonusAnimation;
@@ -281,7 +280,7 @@ public class QuizActivity extends Activity
             LeaderBoardHelper.incrementUsedJokers(this);
         } else {
             int jokerInStock = preferences.getInt("JOKER_IN_STOCK", 3);
-            if (jokerInStock > 0 && hasNotConsumedJoker && questionId >= 10) {
+            if (jokerInStock > 0 && questionId >= 10) {
                 createJokerDialog(jokerInStock);
                 button.setVisibility(View.INVISIBLE);
                 button.startAnimation(fabAnimation);
@@ -393,7 +392,6 @@ public class QuizActivity extends Activity
                         editor.putInt("JOKER_IN_STOCK", --jokerInStock);
                         editor.apply();
                         countDown.resume();
-                        hasNotConsumedJoker = false;
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
