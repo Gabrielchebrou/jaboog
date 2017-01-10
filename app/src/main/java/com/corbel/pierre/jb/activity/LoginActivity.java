@@ -9,6 +9,7 @@ import android.support.design.widget.TextInputEditText;
 import android.widget.Button;
 
 import com.corbel.pierre.jb.R;
+import com.corbel.pierre.jb.app.Jaboog;
 import com.corbel.pierre.jb.downloader.PictureDownloader;
 import com.corbel.pierre.jb.lib.GameHelper;
 import com.corbel.pierre.jb.lib.Helper;
@@ -110,6 +111,9 @@ public class LoginActivity extends Activity implements GameHelper.GameHelperList
         } else {
             new PictureDownloader(this).execute(getString(R.string.server_photo));
         }
+
+        Jaboog.getInstance().trackEvent("Play Games", "Login", "Login from Login");
+
         Helper.switchActivity(this, TutorialActivity.class, R.anim.fake_anim, R.anim.fake_anim);
     }
 }
