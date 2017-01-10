@@ -14,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.corbel.pierre.jb.R;
+import com.corbel.pierre.jb.app.Jaboog;
 import com.corbel.pierre.jb.downloader.PictureDownloader;
 import com.corbel.pierre.jb.lib.AchievementHelper;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
@@ -167,6 +168,7 @@ public class ResultActivity extends Activity
 
         try {
             startActivity(intent);
+            Jaboog.getInstance().trackEvent("Wiki", "Open Web Browser", "Start from Result");
         } catch (ActivityNotFoundException e) {
             noInternet(this);
         }
@@ -186,6 +188,7 @@ public class ResultActivity extends Activity
     public void startAchievement() {
         try {
             AchievementHelper.displayAchievement(this);
+            Jaboog.getInstance().trackEvent("Play Games", "Achievement", "Start from Result");
         } catch (Exception e) {
             e.printStackTrace();
             isTryingToConnectAchievement = true;
@@ -281,6 +284,8 @@ public class ResultActivity extends Activity
             } else {
                 new PictureDownloader(this).execute(getString(R.string.server_photo));
             }
+
+            Jaboog.getInstance().trackEvent("Play Games", "Login", "Login from Result");
         }
 
         if (isTryingToConnectAchievement) {
