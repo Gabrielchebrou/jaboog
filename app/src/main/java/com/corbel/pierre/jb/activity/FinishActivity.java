@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.corbel.pierre.jb.R;
+import com.corbel.pierre.jb.app.Jaboog;
 import com.corbel.pierre.jb.downloader.PictureDownloader;
 import com.corbel.pierre.jb.lib.AchievementHelper;
 import com.corbel.pierre.jb.lib.AutoResizeTextView;
@@ -166,6 +167,7 @@ public class FinishActivity extends Activity
     public void startAchievement() {
         try {
             AchievementHelper.displayAchievement(this);
+            Jaboog.getInstance().trackEvent("Play Games", "Achievement", "Start from Finish");
         } catch (Exception e) {
             e.printStackTrace();
             isTryingToConnectAchievement = true;
@@ -177,6 +179,7 @@ public class FinishActivity extends Activity
     public void startLeaderBoard() {
         try {
             LeaderBoardHelper.displayLeaderBoard(this);
+            Jaboog.getInstance().trackEvent("Play Games", "LeaderBoard", "Start from Finish");
         } catch (Exception e) {
             e.printStackTrace();
             isTryingToConnectLeaderBoard = true;
@@ -192,6 +195,7 @@ public class FinishActivity extends Activity
         intent.setData(Uri.parse("market://details?id=" + appId));
         try {
             startActivity(intent);
+            Jaboog.getInstance().trackEvent("Play Store", "Rate App", "Start from Finish");
         } catch (ActivityNotFoundException e) {
             noInternet(this);
         }
@@ -298,6 +302,8 @@ public class FinishActivity extends Activity
             } else {
                 new PictureDownloader(this).execute(getString(R.string.server_photo));
             }
+
+            Jaboog.getInstance().trackEvent("Play Games", "Login", "Login from Finish");
         }
 
         if (isTryingToConnectAchievement) {
