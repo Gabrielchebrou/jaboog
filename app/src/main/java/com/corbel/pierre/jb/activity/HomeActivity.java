@@ -21,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.corbel.pierre.jb.R;
+import com.corbel.pierre.jb.app.Jaboog;
 import com.corbel.pierre.jb.downloader.ArchiveDownloader;
 import com.corbel.pierre.jb.downloader.PictureDownloader;
 import com.corbel.pierre.jb.lib.AchievementHelper;
@@ -168,6 +169,7 @@ public class HomeActivity extends Activity
     public void startAchievement() {
         try {
             AchievementHelper.displayAchievement(this);
+            Jaboog.getInstance().trackEvent("Play Games", "Achievement", "Start from Home");
         } catch (Exception e) {
             e.printStackTrace();
             isTryingToConnectAchievement = true;
@@ -179,6 +181,7 @@ public class HomeActivity extends Activity
     public void startLeaderBoard() {
         try {
             LeaderBoardHelper.displayLeaderBoard(this);
+            Jaboog.getInstance().trackEvent("Play Games", "LeaderBoard", "Start from Home");
         } catch (Exception e) {
             e.printStackTrace();
             isTryingToConnectLeaderBoard = true;
@@ -250,6 +253,7 @@ public class HomeActivity extends Activity
             intent.setData(Uri.parse("market://details?id=" + appId));
             try {
                 startActivity(intent);
+                Jaboog.getInstance().trackEvent("Play Store", "Rate App", "Start from Home");
             } catch (ActivityNotFoundException e) {
                 noInternet(this);
             }
@@ -356,6 +360,8 @@ public class HomeActivity extends Activity
             } else {
                 new PictureDownloader(this).execute(getString(R.string.server_photo));
             }
+
+            Jaboog.getInstance().trackEvent("Play Games", "Login", "Login from Home");
         }
 
         if (isTryingToConnectAchievement) {
