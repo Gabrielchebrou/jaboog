@@ -13,6 +13,7 @@ import android.view.View;
 import com.corbel.pierre.jb.R;
 import com.corbel.pierre.jb.activity.ArchiveActivity;
 import com.corbel.pierre.jb.activity.HomeActivity;
+import com.corbel.pierre.jb.app.Jaboog;
 import com.corbel.pierre.jb.lib.DbHelper;
 import com.corbel.pierre.jb.lib.Serie;
 
@@ -162,6 +163,7 @@ public class ArchiveDownloader extends AsyncTask<String, Void, Boolean> {
         editor.apply();
 
         ShortcutBadger.removeCount(activity.getApplicationContext());
+        Jaboog.getInstance().trackEvent("ShortcutBadger", "Remove", "Remove badge from ArchiveDownloader");
     }
 
     private class SnackListener implements View.OnClickListener {
