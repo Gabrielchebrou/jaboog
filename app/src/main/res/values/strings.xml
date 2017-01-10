@@ -22,11 +22,12 @@
     <string name="iap_no_ad_text">Pas de publicité</string>
     <string name="iap_no_ad_price">0,99€</string>
     <string name="iap_premium_text">Compte Premium</string>
-    <string name="iap_premium_price">3,99€</string>
+    <string name="iap_premium_price">1,99€</string>
     <string name="iap_joker_25_text">Pack de 25 jokers</string>
     <string name="iap_joker_25_price">0,99€</string>
     <string name="iap_joker_50_text">Pack de 50 jokers</string>
     <string name="iap_joker_50_price">1,99€</string>
+    <string name="iap_title">Boutique</string>
 
     <!-- Home -->
     <string name="home_serie">%1$s : %2$d/30</string>

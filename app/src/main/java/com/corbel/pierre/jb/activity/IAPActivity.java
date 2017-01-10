@@ -47,6 +47,7 @@ public class IAPActivity extends Activity {
     FloatingActionButton fab;
     @BindView(R.id.jokers_left_text_view)
     AutoResizeTextView jokersLeftTextView;
+
     private SharedPreferences preferences;
     IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
