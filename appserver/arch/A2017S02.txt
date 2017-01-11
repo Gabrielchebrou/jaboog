@@ -8,7 +8,7 @@ Quel acteur a été récompensé l’année dernière lors de la cérémonie des
 L'année dernière, dans la catégorie  « Meilleur série dramatique » des Golden Globes, quelle série a remporté le prix ?;Mr Robot;Game of Thrones;Narcos; Outlander;Mr Robot;gg;https://fr.wikipedia.org/wiki/73e_c%C3%A9r%C3%A9monie_des_Golden_Globes;;
 Combien de film français ont été nominés dans la catégorie « Meilleur film en langue étrangère » au cours des 9 dernières éditions des Golden Globes ?;13;9;4;1;13;gg;https://fr.wikipedia.org/wiki/Golden_Globe_du_meilleur_film_en_langue_%C3%A9trang%C3%A8re;;
 Entre l’épiphanie et le carême a lieu la période des carnavals. Quel est le plus célèbre carnaval de France ?;Nice;Paris ;Limoux;Bordeaux;Nice;div;https://fr.wikipedia.org/wiki/Carnaval_de_Nice;;
-Quel pourcentage de participant ont abandonné durant le rallye Dakar l’année dernière ?;40%;10%;20%;60%;40%;div;https://fr.wikipedia.org/wiki/Rallye_Dakar_2016;;
+Combien de participant ont abandonné durant le rallye Dakar l’année dernière ?;40%;10%;20%;60%;40%;div;https://fr.wikipedia.org/wiki/Rallye_Dakar_2016;;
 Les mots caféine et théine désignent exactement la même molécule.;Vrai;Faux;;;Vrai;tech;https://fr.wikipedia.org/wiki/Caf%C3%A9ine;;
 L’année 2017 comptera six week-ends de trois jours et deux ponts grâce aux jours fériés.;Vrai;Faux;;;Vrai;pays;https://www.franceinter.fr/societe/2017-une-bonne-annee-pour-les-jours-feries;;
 Lequel de ces pays enregistre la plus forte croissance du PIB en 2016 ? ;Royaume-Uni;France;Etats-Unis;Allemagne;Royaume-Uni;pol;http://www.lemonde.fr/economie/article/2017/01/06/brexit-le-mea-culpa-de-l-economiste-de-la-banque-d-angleterre_5058897_3234.html;;
